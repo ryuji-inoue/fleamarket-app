@@ -1,0 +1,254 @@
+.admin {
+    width: 1000px;
+    margin: 0 auto;
+    padding-top: 40px;
+}
+
+.admin__title {
+    text-align: center;
+    font-size: 26px;
+    color: #7a6a5f;
+    margin-bottom: 30px;
+}
+
+
+/* 検索フォーム */
+.admin__search {
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin__search form {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.admin__input,
+.admin__select,
+.admin__date {
+    padding: 8px;
+    border: none;
+    background-color: #f3f1ef;
+    font-size: 14px;
+}
+
+.admin__input {
+    width: 300px;
+}
+
+.admin__button {
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.admin__button--search {
+    background-color: #7a6a5f;
+    color: #fff;
+    width: 80px;
+}
+
+.admin__button--reset {
+    background-color: #cbb9a6;
+    color: #fff;
+    /* 下線を削除 */
+    text-decoration: none;
+}
+
+
+/* エクスポートとページネーションを同じ段に配置 */
+.admin__export-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/* エクスポートボタン */
+.admin__export {
+    flex: 1;
+    margin: 10px 0;
+    text-align: left;
+    margin-left: auto;
+
+}
+
+
+.admin__button--export {
+    flex: 1;
+    background-color: #e5ded6;
+    margin-bottom: 10px;
+    display: inline-block;
+    /* 下線を削除 */
+    text-decoration: none;
+}
+
+
+/* ページネーション */
+.admin__pagination {
+    display: flex;
+    justify-content: center;
+}
+
+/* ページ番号 */
+.admin__pagination a,
+.admin__pagination span {
+    display: inline-block;
+    margin: 0 4px;
+    padding: 6px 12px;
+    background-color: #f3f1ef;
+    text-decoration: none;
+    color: #7a6a5f;
+    border-radius: 4px;
+    transition: 0.2s;
+}
+
+/* hover効果 */
+.admin__pagination a:hover {
+    background-color: #e0dbd6;
+}
+
+/* 現在ページ */
+.admin__pagination .active {
+    background-color: #7a6a5f;
+    color: #fff;
+}
+
+/* 無効ボタン（前へ・次へ） */
+.admin__pagination .disabled span {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+
+/* テーブル */
+.admin__table-wrapper {
+    background-color: #fff;
+    padding: 0;
+}
+
+.admin__table {
+    width: 100%;
+    border-collapse: collapse;
+    border: #7a6a5f;
+}
+
+.admin__table thead {
+    background-color: #7a6a5f;
+    color: #fff;
+    text-align: left;
+}
+
+.admin__table th,
+.admin__table td {
+    padding: 12px;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+}
+
+.admin__detail-button {
+    background-color: #e5ded6;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+
+/* ===== モーダル ===== */
+
+/* checkbox非表示 */
+.admin__modal-toggle {
+    display: none;
+}
+
+/* 背景 */
+.admin__modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+/* チェックされたら表示 */
+.admin__modal-toggle:checked~.admin__modal {
+    display: flex;
+}
+
+/* モーダル本体 */
+.admin__modal-content {
+    background: #fff;
+    width: 600px;
+    padding: 40px;
+    position: relative;
+    border-radius: 6px;
+}
+
+/* 閉じるボタン */
+.admin__modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/* レコード */
+.admin__modal-row {
+    display: flex;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.admin__modal-row span:first-child {
+    width: 180px;
+    font-weight: bold;
+}
+
+/* 削除ボタン */
+.admin__modal-delete {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.admin__delete-button {
+    background-color: #c0392b;
+    color: #fff;
+    border: none;
+    padding: 8px 20px;
+    cursor: pointer;
+}
+
+/* プルダウンのスタイル変更
+.admin__select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: relative;
+    padding-right: 30px;
+    background-color: #f3f1ef;
+    font-size: 14px;
+}
+*/
+
+/* arrow追加 
+.admin__select::after {
+    z-index: 2;
+    content: '▼';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    pointer-events: none;
+}
+*/

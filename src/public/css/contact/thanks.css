@@ -1,0 +1,47 @@
+/* =========================
+   Thanks Page
+========================= */
+
+.thanks {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.thanks::before {
+    content: "Thank you";
+    position: absolute;
+    font-size: 240px;
+    color: #000;
+    opacity: 0.05;
+    z-index: 0;
+    white-space: nowrap;
+}
+
+.thanks__inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.thanks__message {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #6b5b53;
+}
+
+.thanks__button {
+    display: inline-block;
+    padding: 10px 40px;
+    background-color: #6b5b53;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.thanks__button:hover {
+    opacity: 0.8;
+}
