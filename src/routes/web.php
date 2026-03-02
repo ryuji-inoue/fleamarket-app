@@ -22,35 +22,19 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 |
 */
 
-// =======================
-// Contact (お問い合わせ系)
-// =======================
 
-// お問い合わせフォーム入力ページ
-Route::get('/', [ContactController::class, 'index'])->name('contact.index');
+/*
+|--------------------------------------------------------------------------
+| トップページ（商品一覧）
+|--------------------------------------------------------------------------
+*/
 
-// お問い合わせフォーム確認ページ
-Route::post('/confirm', [ContactController::class, 'confirm'])->name('contact.confirm');
+// 商品一覧（トップ）
+Route::get('/', [ItemController::class, 'index'])->name('items.index');
 
-// PG03 サンクスページ
-Route::post('/thanks', [ContactController::class, 'thanks'])->name('contact.thanks');
-Route::get('/thanks', function () {return view('contact.thanks');});
+// マイリスト表示（クエリ ?tab=mylist で分岐）
+Route::get('/', [ItemController::class, 'index']);
 
-// =======================
-// Admin (管理系)
-// =======================
-
-// 管理画面
-Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
-
-// 検索リセット
-Route::get('/reset', [AdminController::class, 'reset'])->name('admin.reset');
-
-// お問い合わせフォーム削除
-Route::delete('/delete/{id}', [AdminController::class, 'delete'])->name('admin.delete');
-
-// エクスポート
-Route::get('/export', [AdminController::class, 'export'])->name('admin.export');
 
 
 // =======================
@@ -65,3 +49,69 @@ Route::post('/login', [LoginController::class, 'login']);
 
 // ログアウト
 Route::get('/logout', [LoginController::class, 'logout'])->name('auth.logout');
+
+/*
+|--------------------------------------------------------------------------
+| 商品購入関連（ログイン必須）
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth')->group(function () {
+
+    // 商品購入画面
+    Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])
+        ->name('purchase.show')
+        ->where('item_id', '[0-9]+');
+
+    // 商品購入処理
+    Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])
+        ->name('purchase.store');
+
+    // 住所変更画面
+    Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'editAddress'])
+        ->name('purchase.address.edit');
+
+    // 住所更新処理
+    Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'updateAddress'])
+        ->name('purchase.address.update');
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| 商品出品（ログイン必須）
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth')->group(function () {
+
+    // 出品画面
+    Route::get('/sell', [SellController::class, 'create'])
+        ->name('sell.create');
+
+    // 出品登録
+    Route::post('/sell', [SellController::class, 'store'])
+        ->name('sell.store');
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| マイページ（ログイン必須）
+|--------------------------------------------------------------------------
+*/
+
+Route::middleware('auth')->group(function () {
+
+    // プロフィール画面
+    Route::get('/mypage', [ProfileController::class, 'index'])
+        ->name('mypage');
+
+    // プロフィール編集画面
+    Route::get('/mypage/profile', [ProfileController::class, 'edit'])
+        ->name('mypage.profile.edit');
+
+    // プロフィール更新
+    Route::post('/mypage/profile', [ProfileController::class, 'update'])
+        ->name('mypage.profile.update');
+});

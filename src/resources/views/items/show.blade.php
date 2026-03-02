@@ -1,0 +1,85 @@
+@extends('layouts.app')
+
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/item_detail.css') }}">
+@endsection
+
+@section('content')
+
+<div class="detail-container">
+
+    {{-- 左側：画像 --}}
+    <div class="detail-left">
+        <img src="{{ $item->image_url }}" alt="商品画像">
+    </div>
+
+    {{-- 右側：情報 --}}
+    <div class="detail-right">
+
+        <h2 class="item-title">{{ $item->name }}</h2>
+        <p class="brand">{{ $item->brand }}</p>
+
+        <p class="price">
+            ¥{{ number_format($item->price) }}
+            <span>(税込)</span>
+        </p>
+
+        {{-- いいね & コメント数 --}}
+        <div class="meta-icons">
+
+            <form action="/favorite/{{ $item->id }}" method="POST">
+                @csrf
+                <button class="heart-btn">
+                    ❤️
+                </button>
+                <span>{{ $item->favoritedUsers->count() }}</span>
+            </form>
+
+            <div class="comment-icon">
+                💬 <span>{{ $item->comments->count() ?? 0 }}</span>
+            </div>
+
+        </div>
+
+        <a href="/purchase/{{ $item->id }}" class="purchase-btn">
+            購入手続きへ
+        </a>
+
+        {{-- 商品説明 --}}
+        <div class="section">
+            <h3>商品説明</h3>
+            <p>{{ $item->description }}</p>
+        </div>
+
+        {{-- 商品情報 --}}
+        <div class="section">
+            <h3>商品の情報</h3>
+            <p>商品の状態：{{ $item->condition_label }}</p>
+        </div>
+
+        {{-- コメント一覧 --}}
+        <div class="section">
+            <h3>コメント ({{ $item->comments->count() ?? 0 }})</h3>
+
+            @foreach($item->comments ?? [] as $comment)
+                <div class="comment-box">
+                    <strong>{{ $comment->user->name }}</strong>
+                    <p>{{ $comment->content }}</p>
+                </div>
+            @endforeach
+        </div>
+
+        {{-- コメント投稿 --}}
+        @auth
+        <form action="/comment/{{ $item->id }}" method="POST" class="comment-form">
+            @csrf
+            <textarea name="content" placeholder="商品のコメント"></textarea>
+            <button type="submit">コメントを送信する</button>
+        </form>
+        @endauth
+
+    </div>
+
+</div>
+
+@endsection

@@ -1,0 +1,117 @@
+body {
+    background-color: #f5f5f5;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.detail-container {
+    display: flex;
+    gap: 60px;
+    padding: 60px;
+}
+
+.detail-left img {
+    width: 450px;
+    height: 450px;
+    object-fit: cover;
+    background: #ddd;
+}
+
+.detail-right {
+    flex: 1;
+    max-width: 500px;
+}
+
+.item-title {
+    margin: 0;
+}
+
+.brand {
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.price span {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.meta-icons {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.heart-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.purchase-btn {
+    display: block;
+    background-color: #ff5c5c;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin: 20px 0;
+}
+
+.section {
+    margin-top: 30px;
+}
+
+.comment-box {
+    background: #eee;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.comment-form textarea {
+    width: 100%;
+    height: 100px;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.comment-form button {
+    background-color: #ff5c5c;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-top: 10px;
+    width: 100%;
+    cursor: pointer;
+}
+
+/* -------------------
+   レスポンシブ対応
+-------------------- */
+@media (max-width: 768px) {
+
+    .detail-container {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .detail-left img {
+        width: 100%;
+        height: auto;
+    }
+
+    .detail-right {
+        max-width: 100%;
+    }
+
+}

@@ -1,0 +1,25 @@
+.address-container {
+    max-width: 600px;
+    margin: 50px auto;
+    background: white;
+    padding: 40px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+.update-btn {
+    width: 100%;
+    background: #ff5c5c;
+    color: white;
+    border: none;
+    padding: 10px;
+}

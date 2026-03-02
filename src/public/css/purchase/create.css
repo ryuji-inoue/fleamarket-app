@@ -1,0 +1,45 @@
+.purchase-container {
+    display: flex;
+    gap: 50px;
+    padding: 50px;
+}
+
+.left {
+    flex: 2;
+}
+
+.right {
+    flex: 1;
+}
+
+.item-summary {
+    display: flex;
+    gap: 20px;
+}
+
+.item-summary img {
+    width: 100px;
+    height: 100px;
+    background: #ddd;
+}
+
+.summary-box {
+    border: 1px solid #ddd;
+    padding: 20px;
+}
+
+.buy-btn {
+    width: 100%;
+    background: #ff5c5c;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+@media(max-width:768px) {
+    .purchase-container {
+        flex-direction: column;
+        padding: 20px;
+    }
+}
