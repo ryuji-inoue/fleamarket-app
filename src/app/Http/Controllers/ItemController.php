@@ -7,23 +7,38 @@ use App\Models\Item;
 
 class ItemController extends Controller
 {
-    // 商品一覧（トップ）
     public function index(Request $request)
     {
-        if ($request->tab === 'mylist' && auth()->check()) {
-            $items = auth()->user()->favoriteItems()->latest()->get();
+        $query = Item::query();
+
+        // 商品名検索（部分一致）
+        if ($request->keyword) {
+            $query->where('name', 'like', '%' . $request->keyword . '%');
+        }
+
+        // ログイン時、自分の商品を除外
+        if (auth()->check()) {
+            $query->where('user_id', '!=', auth()->id());
+        }
+
+        // マイリスト
+        if ($request->tab === 'mylist') {
+
+            if (!auth()->check()) {
+                $items = collect(); // 未認証は空
+            } else {
+                $items = auth()->user()
+                    ->favoriteItems()
+                    ->when($request->keyword, function ($q) use ($request) {
+                        $q->where('name', 'like', '%' . $request->keyword . '%');
+                    })
+                    ->get();
+            }
+
         } else {
-            $items = Item::latest()->get();
+            $items = $query->latest()->get();
         }
 
         return view('items.index', compact('items'));
-    }
-
-    // 商品詳細
-    public function show($item_id)
-    {
-        $item = Item::findOrFail($item_id);
-
-        return view('items.show', compact('item'));
     }
 }

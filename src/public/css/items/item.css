@@ -1,46 +1,71 @@
-body {
-    background-color: #f5f5f5;
-    margin: 0;
-    font-family: sans-serif;
+.container {
+    width: 90%;
+    margin: 30px auto;
+}
+
+.search-form {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.search-form input {
+    width: 300px;
+    padding: 8px;
 }
 
 .tabs {
-    display: flex;
-    gap: 20px;
-    padding: 20px 40px;
-    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
 }
 
-.tab {
+.tabs a {
+    margin-right: 20px;
     text-decoration: none;
-    color: #555;
-    font-weight: bold;
+    color: black;
+    padding-bottom: 5px;
 }
 
-.tab.active {
+.tabs a.active {
     color: red;
+    border-bottom: 2px solid red;
 }
 
-.items-container {
+.item-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    padding: 40px;
+    gap: 20px;
 }
 
 .item-card {
-    text-decoration: none;
-    color: black;
+    text-align: center;
 }
 
-.item-card img {
+.image-wrapper {
+    position: relative;
+}
+
+.image-wrapper img {
     width: 100%;
-    height: 200px;
+    height: 180px;
     object-fit: cover;
-    background: #ddd;
+    background: #eee;
+}
+
+.sold-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: red;
+    color: white;
+    padding: 4px 8px;
+    font-size: 12px;
 }
 
 .item-name {
     margin-top: 10px;
-    font-size: 14px;
+}
+
+.empty {
+    text-align: center;
+    margin-top: 50px;
 }

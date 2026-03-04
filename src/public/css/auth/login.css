@@ -1,70 +1,63 @@
-/* 全体コンテナ */
-.login {
-    background-color: #d6cfc7;
-    padding: 60px 20px;
-
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
+body {
+    background-color: #f5f5f5;
+    margin: 0;
+    font-family: sans-serif;
 }
 
-/* タイトル */
-.login__title {
-    font-size: 26px;
-    color: #7a6a5f;
-    margin-bottom: 30px;
-}
-
-/* カード */
-.login__card {
-    width: 420px;
-    margin: 0 auto;
+.auth-container {
+    max-width: 500px;
+    margin: 80px auto;
     padding: 40px;
-    background-color: #ffffff;
-    border-radius: 6px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-}
-
-/* グループ */
-.login__group {
-    text-align: left;
-    margin-bottom: 20px;
-}
-
-/* ラベル */
-.login__label {
-    display: block;
-    margin-bottom: 8px;
-    color: #7a6a5f;
-    font-size: 14px;
-}
-
-/* 入力欄 */
-.login__input {
-    width: 100%;
-    padding: 10px;
-    background-color: #f3f1ef;
-    border: none;
-    border-radius: 3px;
-    font-size: 14px;
-}
-
-/* ボタンエリア */
-.login__button-area {
+    background: #f5f5f5;
     text-align: center;
-    margin-top: 30px;
 }
 
-/* ログインボタン */
-.login__button {
-    background-color: #7a6a5f;
-    color: #ffffff;
+.page-title {
+    margin-bottom: 40px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+.main-btn {
+    width: 100%;
+    background-color: #ff5c5c;
+    color: white;
     border: none;
-    padding: 8px 30px;
+    padding: 12px;
     font-size: 14px;
     cursor: pointer;
-    border-radius: 3px;
+    margin-top: 10px;
 }
 
-.login__button:hover {
-    opacity: 0.8;
+.register-link {
+    margin-top: 15px;
+}
+
+.register-link a {
+    font-size: 14px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+    .auth-container {
+        margin: 30px 20px;
+        padding: 20px;
+    }
 }

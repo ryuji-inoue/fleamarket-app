@@ -1,23 +1,47 @@
 @extends('layouts.app')
 
-@section('css')
-<link rel="stylesheet" href="{{ asset('css/items.css') }}">
-@endsection
-
 @section('content')
 
-<div class="tabs">
-    <a href="/" class="tab {{ request('tab') !== 'mylist' ? 'active' : '' }}">おすすめ</a>
-    <a href="/?tab=mylist" class="tab {{ request('tab') === 'mylist' ? 'active' : '' }}">マイリスト</a>
-</div>
+<div class="container">
 
-<div class="items-container">
-    @foreach($items as $item)
-        <a href="/item/{{ $item->id }}" class="item-card">
-            <img src="{{ $item->image_url }}" alt="商品画像">
-            <p class="item-name">{{ $item->name }}</p>
+    {{-- 🔍 検索フォーム --}}
+    <form method="GET" action="{{ route('items.index') }}" class="search-form">
+        <input type="hidden" name="tab" value="{{ request('tab') }}">
+        <input type="text" name="keyword" placeholder="なにをお探しですか？"
+               value="{{ request('keyword') }}">
+        <button type="submit">検索</button>
+    </form>
+
+    {{-- タブ --}}
+    <div class="tabs">
+        <a href="{{ route('items.index', ['tab' => null, 'keyword' => request('keyword')]) }}"
+           class="{{ request('tab') !== 'mylist' ? 'active' : '' }}">
+            おすすめ
         </a>
-    @endforeach
+
+        <a href="{{ route('items.index', ['tab' => 'mylist', 'keyword' => request('keyword')]) }}"
+           class="{{ request('tab') === 'mylist' ? 'active' : '' }}">
+            マイリスト
+        </a>
+    </div>
+
+    {{-- 商品一覧 --}}
+    <div class="item-grid">
+        @forelse($items as $item)
+            <div class="item-card">
+                <div class="image-wrapper">
+                    <img src="{{ asset('storage/' . $item->image) }}" alt="">
+                    @if($item->is_sold)
+                        <span class="sold-label">Sold</span>
+                    @endif
+                </div>
+                <p class="item-name">{{ $item->name }}</p>
+            </div>
+        @empty
+            <p class="empty">商品がありません</p>
+        @endforelse
+    </div>
+
 </div>
 
 @endsection

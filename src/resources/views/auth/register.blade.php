@@ -1,55 +1,46 @@
 @extends('layouts.app')
-@section('show-title', true)
-@section('body-class', 'body--auth')
 
-@section('title', 'ユーザ登録')
-
-@section('content')
-<div class="auth">
-    <h2 class="auth__title">Register</h2>
-
-    <div class="auth__card">
-        <form class="form" action="/register" method="post">
-            @csrf
-
-            <div class="auth__group">
-                <label class="auth__label">お名前</label>
-                <input type="text" name="name" class="auth__input" value="{{ old('name') }}" placeholder="例: 山田　太郎" >
-                @error('name')
-                    <p class="msg--error">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="auth__group">
-                <label class="auth__label">メールアドレス</label>
-                <input type="email" name="email" class="auth__input"  value="{{ old('email') }}" placeholder="例: test@example.com">
-                @error('email')
-                    <p class="msg--error">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="auth__group">
-                <label class="auth__label">パスワード</label>
-                <input type="password" name="password" class="auth__input" placeholder="例: coachtech1106">
-
-                @error('password')
-                    <p class="msg--error">{{ $message }}</p>
-                @enderror
-            </div>
-
-            <div class="auth__button-area">
-                <button type="submit" class="auth__button">登録</button>
-            </div>
-
-        </form>
-    </div>
-</div>
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/auth/register.css') }}">
 @endsection
 
-@push('css')
-<link rel="stylesheet" href="{{ asset('css/auth/auth.css') }}">
-@endpush
+@section('content')
 
-@section('header-buttons')
-    <a href="{{ route('login') }}" class="btn--primary">login</a>
+<div class="auth-container">
+
+    <h2>会員登録</h2>
+
+    <form method="POST" action="{{ route('register') }}">
+        @csrf
+
+        <div class="form-group">
+            <label>ユーザー名</label>
+            <input type="text" name="name" value="{{ old('name') }}">
+        </div>
+
+        <div class="form-group">
+            <label>メールアドレス</label>
+            <input type="email" name="email" value="{{ old('email') }}">
+        </div>
+
+        <div class="form-group">
+            <label>パスワード</label>
+            <input type="password" name="password">
+        </div>
+
+        <div class="form-group">
+            <label>確認用パスワード</label>
+            <input type="password" name="password_confirmation">
+        </div>
+
+        <button class="main-btn">登録する</button>
+
+        <div class="login-link">
+            <a href="/login">ログインはこちら</a>
+        </div>
+
+    </form>
+
+</div>
+
 @endsection

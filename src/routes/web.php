@@ -9,6 +9,10 @@ use App\Http\Controllers\Auth\RegisterController;
 
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SellController;
+use App\Http\Controllers\ProfileController;
 
 
 /*
@@ -33,7 +37,7 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 
 // マイリスト表示（クエリ ?tab=mylist で分岐）
-Route::get('/', [ItemController::class, 'index']);
+// Route::get('/', [ItemController::class, 'index']);
 
 
 
