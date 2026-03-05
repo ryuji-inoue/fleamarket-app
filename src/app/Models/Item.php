@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Item extends Model
 {
-     protected $fillable = [
+    use HasFactory;
+
+    protected $fillable = [
         'user_id',
         'name',
         'image',
@@ -19,8 +21,8 @@ class Item extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function favorites()
+    public function likes()
     {
-        return $this->belongsToMany(User::class, 'favorites');
+        return $this->hasMany(Like::class);
     }
 }

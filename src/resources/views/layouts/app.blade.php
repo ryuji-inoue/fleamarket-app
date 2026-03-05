@@ -1,32 +1,50 @@
 <!DOCTYPE html>
 <html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>@yield('title', 'FleaMarket')</title>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>@yield('title', 'FashionablyLate')</title>
+    <!-- 共通CSS -->
+    <link rel="stylesheet" href="{{ asset('css/layouts/common.css') }}">
 
-        <link rel="stylesheet" href="{{ asset('css/layouts/common.css') }}">
-        @stack('css')
-    </head>
+    <!-- ページ別CSS -->
+    @yield('css')
+</head>
+<body>
 
-    <body class="@yield('body-class')">
+<header class="header">
+    <div class="logo">COACHTECH</div>
 
-        <header class="wrapper__header">
-            @hasSection('show-title')
-                <h1 class="wrapper__title">FashionablyLate</h1>
-            @endif
+    <form method="GET" action="{{ request()->routeIs('items.mylist') ? route('items.mylist') : route('items.index') }}">
+        <input type="text" name="keyword"
+               value="{{ request('keyword') }}"
+               placeholder="なにをお探しですか？">
+    </form>
 
-            <div class="wrapper__buttons">
-                @yield('header-buttons')
-            </div>
-        </header>
+    <div class="nav">
+        <a href="{{ route('logout') }}"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            ログアウト
+        </a>
 
-        <div class="wrapper">
-            <main class="wrapper__content">
-                @yield('content')
-            </main>
-        </div>
+        <a href="{{ route('mypage') }}">マイページ</a>
 
-    </body>
+        <a href="{{ route('items.create') }}" class="sell-btn">
+            出品
+        </a>
+
+        <form id="logout-form"
+                action="{{ route('logout') }}"
+                method="POST"
+                style="display:none;">
+            @csrf
+        </form>
+    </div>
+</header>
+
+<div class="container">
+    @yield('content')
+</div>
+
+</body>
 </html>

@@ -36,8 +36,9 @@ use App\Http\Controllers\ProfileController;
 // 商品一覧（トップ）
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 
+
 // マイリスト表示（クエリ ?tab=mylist で分岐）
-// Route::get('/', [ItemController::class, 'index']);
+Route::get('/mylist', [ItemController::class, 'mylist'])->name('items.mylist');
 
 
 
@@ -87,15 +88,19 @@ Route::middleware('auth')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('auth')->group(function () {
 
     // 出品画面
-    Route::get('/sell', [SellController::class, 'create'])
-        ->name('sell.create');
+    Route::get('/sell', [ItemController::class, 'create'])
+        //->middleware('auth')
+        ->name('items.create');
 
     // 出品登録
     Route::post('/sell', [SellController::class, 'store'])
         ->name('sell.store');
+
+Route::middleware('auth')->group(function () {
+
+
 });
 
 
@@ -105,17 +110,19 @@ Route::middleware('auth')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('auth')->group(function () {
-
-    // プロフィール画面
-    Route::get('/mypage', [ProfileController::class, 'index'])
+// プロフィール画面
+    Route::get('/mypage', [ProfileController::class, 'show'])
         ->name('mypage');
 
     // プロフィール編集画面
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])
-        ->name('mypage.profile.edit');
+        ->name('mypage.edit');
 
     // プロフィール更新
     Route::post('/mypage/profile', [ProfileController::class, 'update'])
         ->name('mypage.profile.update');
+
+Route::middleware('auth')->group(function () {
+
+    
 });

@@ -1,71 +1,71 @@
-.container {
-    width: 90%;
-    margin: 30px auto;
-}
-
-.search-form {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.search-form input {
-    width: 300px;
-    padding: 8px;
-}
-
+/* ===== タブ ===== */
 .tabs {
-    margin-bottom: 20px;
+    display: flex;
+    gap: 60px;
+    padding: 0 0 20px 10px;
     border-bottom: 2px solid #ddd;
+    margin-bottom: 40px;
 }
 
 .tabs a {
-    margin-right: 20px;
     text-decoration: none;
-    color: black;
-    padding-bottom: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+    position: relative;
+    padding-bottom: 8px;
 }
 
 .tabs a.active {
     color: red;
-    border-bottom: 2px solid red;
 }
 
+.tabs a.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 3px;
+    background: red;
+}
+
+/* ===== 商品グリッド ===== */
 .item-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
 }
 
 .item-card {
-    text-align: center;
+    cursor: pointer;
 }
 
 .image-wrapper {
     position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #eee;
 }
 
 .image-wrapper img {
     width: 100%;
-    height: 180px;
+    height: 100%;
     object-fit: cover;
-    background: #eee;
 }
 
-.sold-label {
+.sold {
     position: absolute;
     top: 10px;
     left: 10px;
     background: red;
     color: white;
-    padding: 4px 8px;
-    font-size: 12px;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .item-name {
     margin-top: 10px;
-}
-
-.empty {
-    text-align: center;
-    margin-top: 50px;
+    font-size: 16px;
 }

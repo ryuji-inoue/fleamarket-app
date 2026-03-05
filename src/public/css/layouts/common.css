@@ -1,71 +1,68 @@
-/* ================================
-   レイアウト
-================================ */
-body {
+/* ===== リセット ===== */
+* {
     margin: 0;
-    font-family: serif;
-    background-color: #ffffff;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 0;
+body {
+    font-family: sans-serif;
+    background-color: #f5f5f5;
 }
 
-.wrapper__header {
+/* ===== ヘッダー ===== */
+.header {
+    background-color: #000;
+    color: #fff;
     display: flex;
-    justify-content: center;
     align-items: center;
-    position: relative;
+    justify-content: space-between;
+    padding: 15px 40px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.header form {
+    flex: 1;
+    margin: 0 40px;
+}
+
+.header input {
     width: 100%;
-
-    background-color: #ffffff;
-    border-bottom: 1px solid #eee;
-}
-
-.wrapper__title {
-    font-size: 28px;
-    color: #6b5b53;
-}
-
-
-.wrapper__content {
-    min-height: calc(100vh - 80px);
-}
-
-/* ================================
-   ボタン
-================================ */
-.wrapper__buttons {
-    position: absolute;
-    right: 200px;
-}
-
-.btn--primary {
-    background-color: #dbdbdb;
-    color: #adadad;
-    padding: 8px 20px;
+    padding: 8px 12px;
     border-radius: 5px;
+    border: none;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+/* 通常リンク */
+.nav a {
+    color: #fff;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 15px;
 }
 
-.btn--secondary {
-    background-color: #dbdbdb;
-    color: #555;
+/* 出品ボタン */
+.sell-btn {
+    background: #fff;
+    color: #000 !important;
+    padding: 6px 15px;
+    border-radius: 4px;
+    font-weight: bold;
 }
 
-.btn:hover {
-    opacity: 0.8;
-}
-
-/* ================================
-   エラーメッセージ
-================================ */
-
-.msg--error {
-    color: #d8000c !important;
-    font-size: 16px;
-    margin-top: 5px;
+/* ===== メインコンテンツ ===== */
+.container {
+    max-width: 1100px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 40px;
 }

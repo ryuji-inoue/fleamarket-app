@@ -4,41 +4,67 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\Like;
+use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
+    // FN014 商品一覧
     public function index(Request $request)
     {
         $query = Item::query();
+
+        // 自分の商品を除外（ログイン時）
+        if (Auth::check()) {
+            $query->where('user_id', '!=', Auth::id());
+        }
 
         // 商品名検索（部分一致）
         if ($request->keyword) {
             $query->where('name', 'like', '%' . $request->keyword . '%');
         }
 
-        // ログイン時、自分の商品を除外
-        if (auth()->check()) {
-            $query->where('user_id', '!=', auth()->id());
-        }
+        $items = $query->latest()->get();
 
-        // マイリスト
-        if ($request->tab === 'mylist') {
-
-            if (!auth()->check()) {
-                $items = collect(); // 未認証は空
-            } else {
-                $items = auth()->user()
-                    ->favoriteItems()
-                    ->when($request->keyword, function ($q) use ($request) {
-                        $q->where('name', 'like', '%' . $request->keyword . '%');
-                    })
-                    ->get();
-            }
-
-        } else {
-            $items = $query->latest()->get();
-        }
-
-        return view('items.index', compact('items'));
+        return view('items.index', [
+            'items' => $items,
+            'tab' => 'recommend',
+            'keyword' => $request->keyword
+        ]);
     }
+
+    // FN015 マイリスト
+    public function mylist(Request $request)
+    {
+        if (!Auth::check()) {
+            return view('items.index', [
+                'items' => collect(),
+                'tab' => 'mylist',
+                'keyword' => $request->keyword
+            ]);
+        }
+
+        $likedIds = Like::where('user_id', Auth::id())
+                        ->pluck('item_id');
+
+        $query = Item::whereIn('id', $likedIds);
+
+        if ($request->keyword) {
+            $query->where('name', 'like', '%' . $request->keyword . '%');
+        }
+
+        $items = $query->latest()->get();
+
+        return view('items.index', [
+            'items' => $items,
+            'tab' => 'mylist',
+            'keyword' => $request->keyword
+        ]);
+    }
+
+    public function create()
+    {
+        return view('items.create');
+    }
+
 }
