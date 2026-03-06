@@ -61,7 +61,6 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('auth.logout');
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('auth')->group(function () {
 
     // 商品購入画面
     Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])
@@ -79,6 +78,10 @@ Route::middleware('auth')->group(function () {
     // 住所更新処理
     Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'updateAddress'])
         ->name('purchase.address.update');
+
+Route::middleware('auth')->group(function () {
+
+
 });
 
 
@@ -90,9 +93,9 @@ Route::middleware('auth')->group(function () {
 
 
     // 出品画面
-    Route::get('/sell', [ItemController::class, 'create'])
+    Route::get('/sell', [ItemController::class, 'sell'])
         //->middleware('auth')
-        ->name('items.create');
+        ->name('items.sell');
 
     // 出品登録
     Route::post('/sell', [SellController::class, 'store'])
@@ -116,7 +119,7 @@ Route::middleware('auth')->group(function () {
 
     // プロフィール編集画面
     Route::get('/mypage/profile', [ProfileController::class, 'edit'])
-        ->name('mypage.edit');
+        ->name('mypage.profile.edit');
 
     // プロフィール更新
     Route::post('/mypage/profile', [ProfileController::class, 'update'])

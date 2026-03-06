@@ -22,7 +22,8 @@
     @forelse($items as $item)
         <div class="item-card">
             <div class="image-wrapper">
-                <img src="{{ asset('storage/' . $item->image) }}">
+                {{-- <img src="{{ asset('storage/' . $item->image) }}"> --}}
+                <img src="{{ $item->image_url }}">
                 @if($item->is_sold)
                     <span class="sold">Sold</span>
                 @endif

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Like;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
@@ -62,9 +63,11 @@ class ItemController extends Controller
         ]);
     }
 
-    public function create()
+    public function sell()
     {
-        return view('items.create');
+        $categories = Category::all();
+
+        return view('items.sell', compact('categories'));
     }
 
 }

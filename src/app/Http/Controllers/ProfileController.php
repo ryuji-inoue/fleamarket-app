@@ -7,14 +7,45 @@ use Illuminate\Http\Request;
 class ProfileController extends Controller
 {
     /* プロフィール画面 */
-    public function show()
+    public function show(Request $request)
     {
-        return view('profile.show');
+        $user = auth()->user();
+
+        // 出品商品
+        if ($request->page === 'sell') {
+            $items = Item::where('user_id', $user->id)->latest()->get();
+        }
+        // 購入商品
+        else if ($request->page === 'buy') {
+            $items = $user->purchases()->with('item')->latest()->get();
+        }
+        else {
+            $items = collect();
+        }
+
+        return view('profile.show', compact('user', 'items'));
     }
 
     /* プロフィール編集画面 */
     public function edit()
     {
-        return view('profile.edit');
+        $user = auth()->user();
+
+        return view('profile.edit', compact('user'));
+    }
+
+    /*  プロフィール更新*/
+    public function update(Request $request)
+    {
+        $user = auth()->user();
+
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        $user->name = $request->name;
+        $user->save();
+
+        return redirect()->route('mypage');
     }
 }

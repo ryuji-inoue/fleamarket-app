@@ -29,7 +29,7 @@
 
         <a href="{{ route('mypage') }}">マイページ</a>
 
-        <a href="{{ route('items.create') }}" class="sell-btn">
+        <a href="{{ route('items.sell') }}" class="sell-btn">
             出品
         </a>
 

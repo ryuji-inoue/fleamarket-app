@@ -1,0 +1,118 @@
+body {
+    background-color: #f5f5f5;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.sell-container {
+    max-width: 700px;
+    margin: 50px auto;
+    background: white;
+    padding: 40px;
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.section-title {
+    margin-top: 40px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.form-group {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+textarea {
+    height: 100px;
+}
+
+.image-upload {
+    border: 1px dashed #ccc;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+}
+
+.image-upload input {
+    display: none;
+}
+
+.image-btn {
+    background-color: white;
+    border: 1px solid #ff5c5c;
+    color: #ff5c5c;
+    padding: 6px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.category-tag {
+    position: relative;
+}
+
+.category-tag input {
+    display: none;
+}
+
+.category-tag span {
+    display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid #ff5c5c;
+    border-radius: 20px;
+    color: #ff5c5c;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.category-tag input:checked+span {
+    background-color: #ff5c5c;
+    color: white;
+}
+
+.sell-btn {
+    background-color: #ff5c5c;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* ---------------------
+   レスポンシブ対応
+---------------------- */
+@media (max-width: 768px) {
+
+    .sell-container {
+        margin: 20px;
+        padding: 20px;
+    }
+
+}
