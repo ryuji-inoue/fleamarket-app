@@ -70,4 +70,12 @@ class ItemController extends Controller
         return view('items.sell', compact('categories'));
     }
 
+    //コメントといいねを一緒に取得
+    public function show(Item $item)
+    {
+        $item->load(['comments.user', 'favorites']);
+
+        return view('items.show', compact('item'));
+    }
+
 }

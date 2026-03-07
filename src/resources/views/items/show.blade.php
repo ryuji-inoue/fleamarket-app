@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/item_detail.css') }}">
+<link rel="stylesheet" href="{{ asset('css/items/show.css') }}">
 @endsection
 
 @section('content')
@@ -32,11 +32,11 @@
                 <button class="heart-btn">
                     ❤️
                 </button>
-                <span>{{ $item->favoritedUsers->count() }}</span>
+                <span>{{ $item->favorites->count() }}</span>
             </form>
 
             <div class="comment-icon">
-                💬 <span>{{ $item->comments->count() ?? 0 }}</span>
+                💬 <span>{{ $item->comments->count() }}</span>
             </div>
 
         </div>
@@ -61,7 +61,7 @@
         <div class="section">
             <h3>コメント ({{ $item->comments->count() ?? 0 }})</h3>
 
-            @foreach($item->comments ?? [] as $comment)
+            @foreach($item->comments as $comment)
                 <div class="comment-box">
                     <strong>{{ $comment->user->name }}</strong>
                     <p>{{ $comment->content }}</p>

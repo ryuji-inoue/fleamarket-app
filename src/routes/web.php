@@ -41,6 +41,9 @@ Route::get('/', [ItemController::class, 'index'])->name('items.index');
 Route::get('/mylist', [ItemController::class, 'mylist'])->name('items.mylist');
 
 
+Route::get('/items/{item_id}', [ItemController::class, 'show'])->name('items.show');
+
+
 
 // =======================
 // Auth (認証系)

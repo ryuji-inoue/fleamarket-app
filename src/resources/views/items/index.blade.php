@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/items/item.css') }}">
+<link rel="stylesheet" href="{{ asset('css/items/index.css') }}">
 @endsection
 
 @section('content')
@@ -20,6 +20,8 @@
 
 <div class="item-grid">
     @forelse($items as $item)
+
+    <a href="{{ route('items.show', $item->id) }}" class="item-link">
         <div class="item-card">
             <div class="image-wrapper">
                 {{-- <img src="{{ asset('storage/' . $item->image) }}"> --}}
@@ -30,6 +32,8 @@
             </div>
             <p class="item-name">{{ $item->name }}</p>
         </div>
+    </a>
+
     @empty
         <p>商品がありません</p>
     @endforelse

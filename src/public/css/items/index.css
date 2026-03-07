@@ -69,3 +69,8 @@
     margin-top: 10px;
     font-size: 16px;
 }
+
+.item-link {
+    text-decoration: none;
+    color: inherit;
+}
