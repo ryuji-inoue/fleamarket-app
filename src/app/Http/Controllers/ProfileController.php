@@ -4,12 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Item;
+use App\Models\User;
+
 class ProfileController extends Controller
 {
     /* プロフィール画面 */
     public function show(Request $request)
     {
-        $user = auth()->user();
+
+         // 仮ユーザー
+        $user = User::first();
+        //$user = auth()->user();
 
         // 出品商品
         if ($request->page === 'sell') {

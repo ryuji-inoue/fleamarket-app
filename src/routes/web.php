@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 
@@ -13,6 +12,8 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\ProfileController;
+
+use App\Http\Controllers\FavoriteController;
 
 
 /*
@@ -40,8 +41,11 @@ Route::get('/', [ItemController::class, 'index'])->name('items.index');
 // マイリスト表示（クエリ ?tab=mylist で分岐）
 Route::get('/mylist', [ItemController::class, 'mylist'])->name('items.mylist');
 
+// 商品詳細
+Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
 
-Route::get('/items/{item_id}', [ItemController::class, 'show'])->name('items.show');
+// お気に入り
+Route::post('/favorite/{item}', [FavoriteController::class, 'store'])->name('favorite.store');
 
 
 
@@ -58,6 +62,9 @@ Route::post('/login', [LoginController::class, 'login']);
 // ログアウト
 Route::get('/logout', [LoginController::class, 'logout'])->name('auth.logout');
 
+
+Route::get('/edit', [ProfileController::class, 'edit'])->name('mypage.profile');
+
 /*
 |--------------------------------------------------------------------------
 | 商品購入関連（ログイン必須）
@@ -66,8 +73,8 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('auth.logout');
 
 
     // 商品購入画面
-    Route::get('/purchase/{item_id}', [PurchaseController::class, 'show'])
-        ->name('purchase.show')
+    Route::get('/purchase/{item_id}', [PurchaseController::class, 'create'])
+        ->name('purchase.create')
         ->where('item_id', '[0-9]+');
 
     // 商品購入処理

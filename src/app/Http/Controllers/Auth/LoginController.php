@@ -28,7 +28,7 @@ class LoginController extends Controller
         // 認証試行
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate(); // セッション再生成（セキュリティ対策）
-            return redirect()->intended('/admin'); // ログイン後のリダイレクト
+            return redirect()->intended('/edit'); // ログイン後のリダイレクト
         }
 
         // 認証失敗

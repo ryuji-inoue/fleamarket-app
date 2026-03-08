@@ -38,6 +38,6 @@ class RegisterController extends Controller
         Auth::login($user);
 
         // 登録後のリダイレクト
-        return redirect('/admin')->with('success', 'ユーザ登録が完了しました。');
+        return redirect('/edit')->with('success', 'ユーザ登録が完了しました。');
     }
 }

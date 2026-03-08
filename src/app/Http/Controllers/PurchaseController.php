@@ -8,11 +8,11 @@ use App\Models\Item;
 class PurchaseController extends Controller
 {
     // 購入画面
-    public function show($item_id)
+    public function create($item_id)
     {
         $item = Item::findOrFail($item_id);
 
-        return view('purchase.show', compact('item'));
+        return view('purchase.create', compact('item'));
     }
 
     // 購入処理

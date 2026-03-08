@@ -1,45 +1,88 @@
-.purchase-container {
+.purchase-wrapper {
+    width: 1000px;
+    margin: 40px auto;
     display: flex;
-    gap: 50px;
-    padding: 50px;
+    gap: 40px;
 }
 
-.left {
+/* 左 */
+.purchase-left {
     flex: 2;
 }
 
-.right {
+/* 商品情報 */
+.item-section {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.item-image {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+
+.item-info h2 {
+    font-size: 20px;
+}
+
+.price {
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+/* 支払い */
+.payment-section {
+    margin-top: 30px;
+}
+
+.payment-section select {
+    margin-top: 10px;
+    padding: 5px;
+    width: 200px;
+}
+
+/* 配送先 */
+.address-section {
+    margin-top: 30px;
+}
+
+.address-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.address-header a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+/* 右カラム */
+.purchase-right {
     flex: 1;
 }
 
-.item-summary {
-    display: flex;
-    gap: 20px;
-}
-
-.item-summary img {
-    width: 100px;
-    height: 100px;
-    background: #ddd;
-}
-
+/* まとめボックス */
 .summary-box {
-    border: 1px solid #ddd;
-    padding: 20px;
+    border: 1px solid #ccc;
 }
 
-.buy-btn {
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* ボタン */
+.purchase-btn {
     width: 100%;
-    background: #ff5c5c;
+    margin-top: 20px;
+    padding: 12px;
+    background: #ff5555;
     color: white;
     border: none;
-    padding: 10px;
-    margin-top: 20px;
-}
-
-@media(max-width:768px) {
-    .purchase-container {
-        flex-direction: column;
-        padding: 20px;
-    }
+    font-size: 16px;
+    cursor: pointer;
 }
