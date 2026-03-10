@@ -24,9 +24,8 @@
     <a href="{{ route('items.show', $item->id) }}" class="item-link">
         <div class="item-card">
             <div class="image-wrapper">
-                {{-- <img src="{{ asset('storage/' . $item->image) }}"> --}}
-                <img src="{{ $item->image_url }}">
-                @if($item->is_sold)
+                <img src="{{ asset('storage/'.$item->image_url) }}" alt="商品画像">
+                @if($item->status)
                     <span class="sold">Sold</span>
                 @endif
             </div>

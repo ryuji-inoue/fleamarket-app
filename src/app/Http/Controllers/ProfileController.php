@@ -35,7 +35,8 @@ class ProfileController extends Controller
     /* プロフィール編集画面 */
     public function edit()
     {
-        $user = auth()->user();
+        $user = User::first();
+        //$user = auth()->user();
 
         return view('profile.edit', compact('user'));
     }
@@ -43,13 +44,30 @@ class ProfileController extends Controller
     /*  プロフィール更新*/
     public function update(Request $request)
     {
-        $user = auth()->user();
+        //$user = auth()->user();
+        $user = User::first(); 
 
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|max:255',
+            'postal_code' => 'nullable|max:8',
+            'address' => 'nullable|max:255',
+            'building' => 'nullable|max:255',
+            'profile_image' => 'nullable|image'
         ]);
 
+        //画像保存
+        if($request->hasFile('profile_image')){
+
+            $path = $request->file('profile_image')->store('profile','public');
+
+            $user->profile_image = $path;
+        }
+
         $user->name = $request->name;
+        $user->postal_code = $request->postal_code;
+        $user->address = $request->address;
+        $user->building = $request->building;
+
         $user->save();
 
         return redirect()->route('mypage');

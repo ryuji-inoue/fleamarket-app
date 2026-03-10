@@ -14,11 +14,21 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        return [
+         return [
             'name' => $this->faker->name(),
+
             'email' => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+
+            'postal_code' => $this->faker->postcode(),
+
+            'address' => $this->faker->address(),
+
+            'building' => $this->faker->secondaryAddress(),
+
+            'profile_image' => null, // 初期は画像なし
+
+            'password' => bcrypt('password'),
+
             'remember_token' => Str::random(10),
         ];
     }

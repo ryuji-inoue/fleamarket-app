@@ -16,19 +16,28 @@ class SellController extends Controller
     // 出品登録
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'price' => 'required|integer',
-            'description' => 'required',
-        ]);
+
+
+
+        $path = null;
+
+        if ($request->hasFile('image')) {
+
+            $path = $request->file('image')->store('items', 'public');
+
+        }
 
         Item::create([
-            'user_id' => auth()->id(),
+            'user_id' => 1,
             'name' => $request->name,
-            'price' => $request->price,
+            'brand' => $request->brand,
             'description' => $request->description,
+            'price' => $request->price,
+            'image_url' => $path,
+            'condition' => $request->condition,
+            'status' => 0
         ]);
 
-        return redirect('/');
+        return redirect('/')->with('message','出品しました');
     }
 }

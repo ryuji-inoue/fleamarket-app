@@ -22,6 +22,7 @@ class CreatePurchasesTable extends Migration
                   ->onDelete('cascade');
             $table->string('postal_code');
             $table->string('address');
+            $table->string('building');
             $table->timestamps();
         });
     }

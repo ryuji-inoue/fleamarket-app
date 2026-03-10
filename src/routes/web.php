@@ -73,21 +73,20 @@ Route::get('/edit', [ProfileController::class, 'edit'])->name('mypage.profile');
 
 
     // 商品購入画面
-    Route::get('/purchase/{item_id}', [PurchaseController::class, 'create'])
-        ->name('purchase.create')
-        ->where('item_id', '[0-9]+');
+    Route::get('/purchase/{item}', [PurchaseController::class, 'create'])->name('purchase.create');
+    Route::post('/purchase', [PurchaseController::class, 'store'])->name('purchase.store');
 
     // 商品購入処理
     Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])
         ->name('purchase.store');
 
     // 住所変更画面
-    Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'editAddress'])
-        ->name('purchase.address.edit');
+    Route::get('/purchase/address/{item}', [PurchaseController::class, 'editAddress'])
+        ->name('address.edit');
 
     // 住所更新処理
     Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'updateAddress'])
-        ->name('purchase.address.update');
+        ->name('purchase.updateAddress');
 
 Route::middleware('auth')->group(function () {
 

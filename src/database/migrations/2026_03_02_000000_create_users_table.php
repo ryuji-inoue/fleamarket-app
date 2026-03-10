@@ -18,6 +18,15 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+
+            // プロフィール画像
+            $table->string('profile_image')->nullable();
+
+            // 住所情報
+            $table->string('postal_code')->nullable();
+            $table->string('address')->nullable();
+            $table->string('building')->nullable();
+
             $table->timestamps();
         });
     }

@@ -29,7 +29,7 @@
         <div class="form-group">
             <label>カテゴリー</label>
             <div class="category-list">
-                @foreach($categories as $category) -->
+                @foreach($categories as $category) 
                     <label class="category-tag">
                         <input type="checkbox" name="categories[]" value="{{ $category->id }}">
                         <span>{{ $category->name }}</span>

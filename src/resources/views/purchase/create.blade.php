@@ -6,6 +6,10 @@
 
 @section('content')
 
+@php
+$address = session('purchase_address');
+@endphp
+
 <div class="purchase-wrapper">
 
     {{-- 左側 --}}
@@ -14,7 +18,7 @@
         {{-- 商品情報 --}}
         <div class="item-section">
 
-            <img src="{{ $item->image_url }}" class="item-image">
+            <img src="{{ asset('storage/'.$item->image_url) }}"class="item-image" alt="商品画像">
 
             <div class="item-info">
                 <h2>{{ $item->name }}</h2>
@@ -30,7 +34,7 @@
 
             <h3>支払い方法</h3>
 
-            <select>
+            <select name="payment_method">
                 <option>選択してください</option>
                 <option>コンビニ払い</option>
                 <option>カード払い</option>
@@ -45,12 +49,14 @@
 
             <div class="address-header">
                 <h3>配送先</h3>
-                <a href="#">変更する</a>
+                <a href="{{ route('address.edit', $item->id) }}">変更する</a>
             </div>
 
+            {{-- 初期値はユーザー住所、住所変更時はsessionから住所を取得 --}}
             <p>
-                〒 XXX-YYYY <br>
-                ここには住所が入ります
+                〒 {{ $address['postal_code'] ?? $user->postal_code }}
+                {{ $address['address'] ?? $user->address }}
+                {{ $address['building'] ?? $user->building }}
             </p>
 
         </div>
@@ -73,10 +79,15 @@
             </div>
 
         </div>
+        
+    <form action="{{ route('purchase.store', $item->id) }}" method="POST">
+        @csrf
 
         <button class="purchase-btn">
             購入する
         </button>
+
+    </form>
 
     </div>
 
