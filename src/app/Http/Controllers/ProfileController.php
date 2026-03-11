@@ -13,9 +13,8 @@ class ProfileController extends Controller
     public function show(Request $request)
     {
 
-         // 仮ユーザー
-        $user = User::first();
-        //$user = auth()->user();
+        //ユーザー
+        $user = auth()->user();
 
         // 出品商品
         if ($request->page === 'sell') {
@@ -35,8 +34,7 @@ class ProfileController extends Controller
     /* プロフィール編集画面 */
     public function edit()
     {
-        $user = User::first();
-        //$user = auth()->user();
+        $user = auth()->user();
 
         return view('profile.edit', compact('user'));
     }
@@ -44,8 +42,7 @@ class ProfileController extends Controller
     /*  プロフィール更新*/
     public function update(Request $request)
     {
-        //$user = auth()->user();
-        $user = User::first(); 
+        $user = auth()->user();
 
         $request->validate([
             'name' => 'required|max:255',
@@ -58,7 +55,7 @@ class ProfileController extends Controller
         //画像保存
         if($request->hasFile('profile_image')){
 
-            $path = $request->file('profile_image')->store('profile','public');
+            $path = $request->file('profile_image')->store('user','public');
 
             $user->profile_image = $path;
         }

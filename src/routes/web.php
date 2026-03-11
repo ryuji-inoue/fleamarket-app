@@ -37,7 +37,6 @@ use App\Http\Controllers\FavoriteController;
 // 商品一覧（トップ）
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 
-
 // マイリスト表示（クエリ ?tab=mylist で分岐）
 Route::get('/mylist', [ItemController::class, 'mylist'])->name('items.mylist');
 
@@ -46,7 +45,6 @@ Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show')
 
 // お気に入り
 Route::post('/favorite/{item}', [FavoriteController::class, 'store'])->name('favorite.store');
-
 
 
 // =======================
@@ -70,8 +68,7 @@ Route::get('/edit', [ProfileController::class, 'edit'])->name('mypage.profile');
 | 商品購入関連（ログイン必須）
 |--------------------------------------------------------------------------
 */
-
-
+Route::middleware('auth')->group(function () {
     // 商品購入画面
     Route::get('/purchase/{item}', [PurchaseController::class, 'create'])->name('purchase.create');
     Route::post('/purchase', [PurchaseController::class, 'store'])->name('purchase.store');
@@ -88,11 +85,7 @@ Route::get('/edit', [ProfileController::class, 'edit'])->name('mypage.profile');
     Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'updateAddress'])
         ->name('purchase.updateAddress');
 
-Route::middleware('auth')->group(function () {
-
-
 });
-
 
 /*
 |--------------------------------------------------------------------------
@@ -100,6 +93,7 @@ Route::middleware('auth')->group(function () {
 |--------------------------------------------------------------------------
 */
 
+Route::middleware('auth')->group(function () {
 
     // 出品画面
     Route::get('/sell', [ItemController::class, 'sell'])
@@ -109,12 +103,7 @@ Route::middleware('auth')->group(function () {
     // 出品登録
     Route::post('/sell', [SellController::class, 'store'])
         ->name('sell.store');
-
-Route::middleware('auth')->group(function () {
-
-
 });
-
 
 /*
 |--------------------------------------------------------------------------
@@ -122,7 +111,9 @@ Route::middleware('auth')->group(function () {
 |--------------------------------------------------------------------------
 */
 
-// プロフィール画面
+Route::middleware('auth')->group(function () {
+
+    // プロフィール画面
     Route::get('/mypage', [ProfileController::class, 'show'])
         ->name('mypage');
 
@@ -133,8 +124,5 @@ Route::middleware('auth')->group(function () {
     // プロフィール更新
     Route::post('/mypage/profile', [ProfileController::class, 'update'])
         ->name('mypage.profile.update');
-
-Route::middleware('auth')->group(function () {
-
     
 });

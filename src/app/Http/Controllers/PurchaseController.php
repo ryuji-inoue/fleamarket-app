@@ -27,12 +27,12 @@ class PurchaseController extends Controller
 
         // ① 購入保存
         Purchase::create([
-            //'user_id' => auth()->id(),
+            'user_id' => auth()->id(),
             'user_id' => 1,   // 仮ユーザー
             'item_id' => $item->id,
             'postal_code' => $address['postal_code'] ?? $user->postal_code,
             'address' => $address['address'] ?? $user->address,
-            //'building' => $address['building'] ?? $user->building,
+            'building' => $address['building'] ?? $user->building,
         ]);
 
         // ② 商品をsoldにする

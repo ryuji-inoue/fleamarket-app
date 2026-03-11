@@ -7,18 +7,20 @@
 @section('content')
 <div class="edit-container">
 
-    <h2>プロフィール設定</h2>
+    <h2 class="profile-title">プロフィール設定</h2>
 
     <form action="/mypage/profile" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="avatar-section">
-            <div class="avatar"></div>
-            <input type="file" name="profile_image">
+            <div class="avatar">
+                <img src="{{ asset('storage/'.(auth()->user()->profile_image ?? 'user/default-user.png')) }}" class="user-image" alt="プロフィール画像">
+            </div>
 
-            @if(isset($user) && $user->profile_image)
-                <img src="{{ asset('storage/'.$user->profile_image) }}">
-            @endif
+            <label class="file-select-btn">
+                    画像を選択する
+                    <input type="file" name="profile_image">
+            </label>
         </div>
 
         <div class="form-group">
