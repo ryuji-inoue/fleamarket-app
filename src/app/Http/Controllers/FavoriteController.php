@@ -10,7 +10,7 @@ class FavoriteController extends Controller
     public function store($item_id)
     {
         Favorite::create([
-            'user_id' => 1, // 仮ユーザー
+            'user_id' => auth()->id(),
             'item_id' => $item_id
         ]);
 

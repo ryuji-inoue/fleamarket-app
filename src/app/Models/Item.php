@@ -15,7 +15,7 @@ class Item extends Model
         'brand',
         'description',
         'price',
-        'image_url',
+        'image_path',
         'condition',
         'status'
     ];
@@ -34,5 +34,11 @@ class Item extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
-    }    
+    }
+    
+    public function condition()
+    {
+        return $this->belongsTo(Condition::class);
+    }
+    
 }

@@ -15,12 +15,19 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            UsersTableSeeder::class,
-            CategoriesTableSeeder::class,
+
+            
+            UsersTableSeeder::class,        //itemsのuser_id用
+            CategoriesTableSeeder::class,   //item_categoryのcategory_id用
+            ConditionsTableSeeder::class,   //itemsのcondition_id用
+            
             ItemsTableSeeder::class,
-            CategoryItemTableSeeder::class,
-            AddressesTableSeeder::class,
+            PaymentsTableSeeder::class,     //Purchasesのpayment_id用
             PurchasesTableSeeder::class,
+
+            CategoryItemTableSeeder::class,
+            FavoritesTableSeeder::class,
+            CommentsTableSeeder::class,
         ]);
     }
 }

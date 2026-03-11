@@ -20,6 +20,7 @@ class PurchasesTableSeeder extends Seeder
             [
                 'user_id' => 1,
                 'item_id' => 2,
+                'payment_id' => 1,
                 'postal_code' => '1000001',
                 'address' => '東京都千代田区1-1',
                 'created_at' => Carbon::now(),

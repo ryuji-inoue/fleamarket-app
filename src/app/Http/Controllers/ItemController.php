@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Like;
 use App\Models\Category;
+use App\Models\Condition;
+
 use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
@@ -63,14 +65,39 @@ class ItemController extends Controller
         ]);
     }
 
-    public function sell()
+    // 出品画面
+    public function create()
     {
         $categories = Category::all();
+        $conditions = Condition::orderBy('sort')->get();
 
         return view('items.sell', compact('categories'));
     }
 
-    //コメントといいねを一緒に取得
+    // 出品登録
+    public function store(Request $request)
+    {
+        $path = null;
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('items', 'public');
+        }
+
+        Item::create([
+            'user_id' => auth()->id(),
+            'name' => $request->name,
+            'brand' => $request->brand,
+            'description' => $request->description,
+            'price' => $request->price,
+            'image_path' => $path,
+            'condition' => $request->condition,
+            'status' => 0
+        ]);
+
+        return redirect('/')->with('message','出品しました');
+    }
+
+    // 商品詳細
     public function show(Item $item)
     {
         $item->load(['comments.user', 'favorites']);

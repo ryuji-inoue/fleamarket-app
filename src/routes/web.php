@@ -10,11 +10,8 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PurchaseController;
-use App\Http\Controllers\SellController;
 use App\Http\Controllers\ProfileController;
-
 use App\Http\Controllers\FavoriteController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -96,13 +93,12 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
 
     // 出品画面
-    Route::get('/sell', [ItemController::class, 'sell'])
-        //->middleware('auth')
-        ->name('items.sell');
+    Route::get('/sell', [ItemController::class, 'create'])->name('items.sell');;
+    
 
     // 出品登録
-    Route::post('/sell', [SellController::class, 'store'])
-        ->name('sell.store');
+    Route::post('/sell', [ItemController::class, 'store'])->name('items.store');
+
 });
 
 /*

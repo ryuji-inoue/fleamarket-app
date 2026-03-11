@@ -10,7 +10,7 @@
 
     {{-- 左側：画像 --}}
     <div class="detail-left">
-        <img src="{{ asset('storage/'.$item->image_url) }}" alt="商品画像">
+        <img src="{{ asset('storage/'.$item->image_path) }}" alt="商品画像">
     </div>
 
     {{-- 右側：情報 --}}

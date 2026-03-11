@@ -18,7 +18,7 @@ $address = session('purchase_address');
         {{-- 商品情報 --}}
         <div class="item-section">
 
-            <img src="{{ asset('storage/'.$item->image_url) }}"class="item-image" alt="商品画像">
+            <img src="{{ asset('storage/'.$item->image_path) }}"class="item-image" alt="商品画像">
 
             <div class="item-info">
                 <h2>{{ $item->name }}</h2>
@@ -35,9 +35,13 @@ $address = session('purchase_address');
             <h3>支払い方法</h3>
 
             <select name="payment_method">
-                <option>選択してください</option>
-                <option>コンビニ払い</option>
-                <option>カード払い</option>
+                <option value="" disabled selected>選択してください</option>
+
+                @foreach($payments as $payment)
+                    <option value="{{ $payment->id }}">
+                        {{ $payment->name }}
+                    </option>
+                @endforeach
             </select>
 
         </div>

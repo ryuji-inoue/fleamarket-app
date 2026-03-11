@@ -13,8 +13,8 @@ class PurchaseController extends Controller
     public function create($item_id)
     {
         $item = Item::findOrFail($item_id);
-
-        $user = User::first();
+        $user = auth()->user();
+        $payments = Payment::all();
 
         return view('purchase.create', compact('item','user'));
     }
@@ -28,7 +28,6 @@ class PurchaseController extends Controller
         // ① 購入保存
         Purchase::create([
             'user_id' => auth()->id(),
-            'user_id' => 1,   // 仮ユーザー
             'item_id' => $item->id,
             'postal_code' => $address['postal_code'] ?? $user->postal_code,
             'address' => $address['address'] ?? $user->address,
@@ -47,7 +46,7 @@ class PurchaseController extends Controller
     public function editAddress($item_id)
     {
         $item = Item::findOrFail($item_id);
-        $user = User::first();
+        $user = User::auth()->user();;
 
         return view('purchase.edit', compact('item','user'));
     }
