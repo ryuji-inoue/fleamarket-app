@@ -54,7 +54,7 @@
         {{-- 商品情報 --}}
         <div class="section">
             <h3>商品の情報</h3>
-            <p>商品の状態：{{ $item->condition_label }}</p>
+            <p>商品の状態：{{ $item->condition->name ?? '未設定' }}</p>
         </div>
 
         {{-- コメント一覧 --}}
@@ -71,9 +71,9 @@
 
         {{-- コメント投稿 --}}
         @auth
-        <form action="/comment/{{ $item->id }}" method="POST" class="comment-form">
+        <form action="{{ route('comments.store', $item->id) }}" method="POST" class="comment-form">
             @csrf
-            <textarea name="content" placeholder="商品のコメント"></textarea>
+            <textarea name="content" placeholder="商品のコメント">{{ old('content') }}</textarea>
             <button type="submit">コメントを送信する</button>
         </form>
         @endauth

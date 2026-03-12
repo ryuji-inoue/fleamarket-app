@@ -16,7 +16,7 @@ class Item extends Model
         'description',
         'price',
         'image_path',
-        'condition',
+        'condition_id',
         'status'
     ];
 

@@ -11,7 +11,9 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\ProfileController;
+
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +45,8 @@ Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show')
 // お気に入り
 Route::post('/favorite/{item}', [FavoriteController::class, 'store'])->name('favorite.store');
 
+// コメント
+Route::post('/comment/{item}', [CommentController::class, 'store'])->name('comments.store'); 
 
 // =======================
 // Auth (認証系)

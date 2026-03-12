@@ -41,14 +41,13 @@
         {{-- 商品の状態 --}}
         <div class="form-group">
             <label>商品の状態</label>
-            <select name="condition">
+            <select name="condition_id" class="form-control" required>
                 <option value="">選択してください</option>
-                <option value="1">新品・未使用</option>
-                <option value="2">未使用に近い</option>
-                <option value="3">目立った傷や汚れなし</option>
-                <option value="4">やや傷や汚れあり</option>
-                <option value="5">傷や汚れあり</option>
-                <option value="6">全体的に状態が悪い</option>
+                @foreach($conditions as $condition)
+                    <option value="{{ $condition->id }}" {{ (old('condition_id') ?? '') == $condition->id ? 'selected' : '' }}>
+                        {{ $condition->name }}
+                    </option>
+                @endforeach
             </select>
         </div>
 

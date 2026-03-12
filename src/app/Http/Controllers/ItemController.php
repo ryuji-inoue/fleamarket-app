@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
-use App\Models\Like;
+use App\Models\Favorite;
 use App\Models\Category;
 use App\Models\Condition;
 
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
-    // FN014 商品一覧
+    // 商品一覧
     public function index(Request $request)
     {
         $query = Item::query();
@@ -36,7 +36,7 @@ class ItemController extends Controller
         ]);
     }
 
-    // FN015 マイリスト
+    // マイリスト
     public function mylist(Request $request)
     {
         if (!Auth::check()) {
@@ -47,13 +47,13 @@ class ItemController extends Controller
             ]);
         }
 
-        $likedIds = Like::where('user_id', Auth::id())
+        $favoriteIds = Favorite::where('user_id', Auth::id())
                         ->pluck('item_id');
 
-        $query = Item::whereIn('id', $likedIds);
+        $query = Item::whereIn('id', $favoriteIds);
 
         if ($request->keyword) {
-            $query->where('name', 'like', '%' . $request->keyword . '%');
+            $query->where('name', 'favorites', '%' . $request->keyword . '%');
         }
 
         $items = $query->latest()->get();
@@ -71,7 +71,7 @@ class ItemController extends Controller
         $categories = Category::all();
         $conditions = Condition::orderBy('sort')->get();
 
-        return view('items.sell', compact('categories'));
+        return view('items.sell', compact('categories'), compact('conditions'));
     }
 
     // 出品登録
@@ -90,7 +90,7 @@ class ItemController extends Controller
             'description' => $request->description,
             'price' => $request->price,
             'image_path' => $path,
-            'condition' => $request->condition,
+            'condition_id' => $request->condition_id,
             'status' => 0
         ]);
 
