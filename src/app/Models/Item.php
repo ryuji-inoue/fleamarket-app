@@ -40,5 +40,14 @@ class Item extends Model
     {
         return $this->belongsTo(Condition::class);
     }
-    
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class,'item_category');
+    }
+
+    public function isFavoritedBy($user_id)
+    {
+        return $this->favorites()->where('user_id', $user_id)->exists();
+    }
 }

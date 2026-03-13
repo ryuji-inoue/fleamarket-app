@@ -9,6 +9,7 @@
 <div class="auth-container">
 
     <h2>会員登録</h2>
+    @include('components.error')
 
     <form method="POST" action="{{ route('register') }}">
         @csrf

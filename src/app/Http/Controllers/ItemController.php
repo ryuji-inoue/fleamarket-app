@@ -53,7 +53,7 @@ class ItemController extends Controller
         $query = Item::whereIn('id', $favoriteIds);
 
         if ($request->keyword) {
-            $query->where('name', 'favorites', '%' . $request->keyword . '%');
+            $query->where('name', 'like', '%' . $request->keyword . '%');
         }
 
         $items = $query->latest()->get();
@@ -83,7 +83,7 @@ class ItemController extends Controller
             $path = $request->file('image')->store('items', 'public');
         }
 
-        Item::create([
+        $item = Item::create([
             'user_id' => auth()->id(),
             'name' => $request->name,
             'brand' => $request->brand,
@@ -93,6 +93,11 @@ class ItemController extends Controller
             'condition_id' => $request->condition_id,
             'status' => 0
         ]);
+
+        // カテゴリ複数保存
+        if($request->categories){
+            $item->categories()->attach($request->categories);
+        }
 
         return redirect('/')->with('message','出品しました');
     }

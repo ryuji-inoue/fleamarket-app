@@ -5,30 +5,50 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\User;
+use App\Models\Payment;
 use App\Models\Purchase;
 
 class PurchaseController extends Controller
 {
     // 購入画面
-    public function create($item_id)
+    public function create(Request $request,$item_id)
     {
         $item = Item::findOrFail($item_id);
         $user = auth()->user();
         $payments = Payment::all();
 
-        return view('purchase.create', compact('item','user'));
+            $selectedPayment = null;
+
+        if ($request->has('payment_method')) {
+            $selectedPayment = Payment::find($request->payment_method);
+        }
+
+        return view('purchase.create', compact(
+            'item',
+            'user',
+            'payments',
+            'selectedPayment'
+        ));
     }
 
     public function store(Request $request)
     {
         $item = Item::findOrFail($request->item_id);
+        $user = auth()->user();
 
         $address = session('purchase_address');
+
+        // 売却済みチェック
+        if ($item->status == 1) {
+            return redirect('/')
+                ->with('error','この商品はすでに購入されています');
+        }
 
         // ① 購入保存
         Purchase::create([
             'user_id' => auth()->id(),
             'item_id' => $item->id,
+            'payment_id' => $request->payment_id,
             'postal_code' => $address['postal_code'] ?? $user->postal_code,
             'address' => $address['address'] ?? $user->address,
             'building' => $address['building'] ?? $user->building,
@@ -46,7 +66,7 @@ class PurchaseController extends Controller
     public function editAddress($item_id)
     {
         $item = Item::findOrFail($item_id);
-        $user = User::auth()->user();;
+        $user = auth()->user();
 
         return view('purchase.edit', compact('item','user'));
     }
@@ -73,4 +93,5 @@ class PurchaseController extends Controller
         // 商品購入画面に戻る
         return redirect()->route('purchase.create', $item_id);
     }
+
 }

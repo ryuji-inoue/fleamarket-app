@@ -3,17 +3,14 @@
 namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Item;
+use App\Http\Requests\CommentRequest;
 
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function store(Request $request, Item $item)
+    public function store(CommentRequest $request, Item $item)
     {
-        // バリデーション
-        $request->validate([
-            'content' => 'required|string|max:1000',
-        ]);
 
         // コメント作成
         Comment::create([

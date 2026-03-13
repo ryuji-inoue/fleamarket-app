@@ -27,26 +27,24 @@ $address = session('purchase_address');
 
         </div>
 
-        <hr>
-
         {{-- 支払い方法 --}}
         <div class="payment-section">
 
             <h3>支払い方法</h3>
 
-            <select name="payment_method">
-                <option value="" disabled selected>選択してください</option>
-
-                @foreach($payments as $payment)
-                    <option value="{{ $payment->id }}">
-                        {{ $payment->name }}
-                    </option>
-                @endforeach
-            </select>
+            <form action="{{ route('purchase.create', $item->id) }}" method="GET">
+                <select name="payment_method" onchange="this.form.submit()">
+                    <option value="" disabled selected>選択してください</option>
+                    @foreach($payments as $payment)
+                        <option value="{{ $payment->id }}"
+                            {{ request('payment_method') == $payment->id ? 'selected' : '' }}>
+                            {{ $payment->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </form>
 
         </div>
-
-        <hr>
 
         {{-- 配送先 --}}
         <div class="address-section">
@@ -79,13 +77,17 @@ $address = session('purchase_address');
 
             <div class="summary-row">
                 <span>支払い方法</span>
-                <span>コンビニ払い</span>
+                    <span>
+                       <span>{{ $selectedPayment->name ?? '未選択' }}</span>
+                    </span>
             </div>
 
         </div>
         
     <form action="{{ route('purchase.store', $item->id) }}" method="POST">
         @csrf
+
+        <input type="hidden" name="payment_id" value="{{ request('payment_method') }}">
 
         <button class="purchase-btn">
             購入する

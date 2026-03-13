@@ -18,5 +18,10 @@ class Category extends Model
     {
         return $this->hasMany(Contact::class, 'category_id');
     }
+
+    public function items()
+    {
+        return $this->belongsToMany(Item::class, 'item_category');
+    }
     
 }

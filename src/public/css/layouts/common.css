@@ -5,9 +5,10 @@
     box-sizing: border-box;
 }
 
+/* 全体レイアウト */
 body {
-    font-family: sans-serif;
-    background-color: #f5f5f5;
+    margin: 0;
+    font-family: Arial, sans-serif;
 }
 
 /* ===== ヘッダー ===== */
@@ -59,10 +60,33 @@ body {
     font-weight: bold;
 }
 
-/* ===== メインコンテンツ ===== */
+/* コンテンツ共通幅 */
+
+/* PC（1400〜1540px） */
 .container {
-    max-width: 1100px;
-    margin: 40px auto;
-    background: #fff;
-    padding: 40px;
+    max-width: 1540px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* タブレット（768〜850px） */
+@media screen and (max-width:850px) {
+
+    .container {
+        max-width: 850px;
+        padding: 0 20px;
+    }
+
+}
+
+/* エラーメッセージ */
+.error-message {
+    color: #ff0000;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.error-message p {
+    margin: 3px 0;
 }

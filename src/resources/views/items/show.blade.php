@@ -30,7 +30,7 @@
             <form action="/favorite/{{ $item->id }}" method="POST">
                 @csrf
                 <button class="heart-btn">
-                    ❤️
+                    {{ $item->isFavoritedBy(auth()->id()) ? '❤️' : '🤍' }}
                 </button>
                 <span>{{ $item->favorites->count() }}</span>
             </form>
@@ -54,8 +54,24 @@
         {{-- 商品情報 --}}
         <div class="section">
             <h3>商品の情報</h3>
+           
+            <p>カテゴリ：
+                @if($item->categories->isEmpty())
+                    <span>未選択</span>
+                @else
+                    @foreach($item->categories as $category)
+                        <span class="category-tag">
+                            {{ $category->name }}
+                        </span>
+                    @endforeach
+                @endif
+            </p>
+
             <p>商品の状態：{{ $item->condition->name ?? '未設定' }}</p>
         </div>
+
+        {{-- カテゴリ --}}
+
 
         {{-- コメント一覧 --}}
         <div class="section">
@@ -70,10 +86,12 @@
         </div>
 
         {{-- コメント投稿 --}}
+        @include('components.error')
         @auth
         <form action="{{ route('comments.store', $item->id) }}" method="POST" class="comment-form">
             @csrf
             <textarea name="content" placeholder="商品のコメント">{{ old('content') }}</textarea>
+
             <button type="submit">コメントを送信する</button>
         </form>
         @endauth

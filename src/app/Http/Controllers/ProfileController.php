@@ -22,10 +22,15 @@ class ProfileController extends Controller
         }
         // 購入商品
         else if ($request->page === 'buy') {
-            $items = $user->purchases()->with('item')->latest()->get();
+            $items = Item::whereIn('id', function ($query) use ($user) {
+                $query->select('item_id')
+                    ->from('purchases')
+                    ->where('user_id', $user->id);
+            })->latest()->get();
         }
+        // 初期表示
         else {
-            $items = collect();
+            $items = Item::where('user_id', $user->id)->latest()->get();
         }
 
         return view('profile.show', compact('user', 'items'));
