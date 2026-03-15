@@ -28,8 +28,6 @@ class UserFactory extends Factory
             'profile_image' => null, // 初期は画像なし
 
             'password' => bcrypt('password'),
-
-            'remember_token' => Str::random(10),
         ];
     }
 

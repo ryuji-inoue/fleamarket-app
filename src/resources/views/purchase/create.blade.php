@@ -6,10 +6,6 @@
 
 @section('content')
 
-@php
-$address = session('purchase_address');
-@endphp
-
 <div class="purchase-wrapper">
 
     {{-- 左側 --}}
@@ -37,7 +33,7 @@ $address = session('purchase_address');
                     <option value="" disabled selected>選択してください</option>
                     @foreach($payments as $payment)
                         <option value="{{ $payment->id }}"
-                            {{ request('payment_method') == $payment->id ? 'selected' : '' }}>
+                            {{ $paymentId == $payment->id ? 'selected' : '' }}>
                             {{ $payment->name }}
                         </option>
                     @endforeach
@@ -87,12 +83,14 @@ $address = session('purchase_address');
     <form action="{{ route('purchase.store', $item->id) }}" method="POST">
         @csrf
 
-        <input type="hidden" name="payment_id" value="{{ request('payment_method') }}">
-
+        <input type="hidden" name="payment_id" value="{{ $paymentId }}">
+        <input type="hidden" name="postal_code" value="{{ $address['postal_code'] }}">
+        <input type="hidden" name="address" value="{{ $address['address'] }}">
+        <input type="hidden" name="building" value="{{ $address['building'] }}">
         <button class="purchase-btn">
             購入する
         </button>
-
+        @include('components.error')
     </form>
 
     </div>

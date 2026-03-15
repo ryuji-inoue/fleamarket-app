@@ -72,10 +72,10 @@ Route::get('/edit', [ProfileController::class, 'edit'])->name('mypage.profile');
 Route::middleware('auth')->group(function () {
     // 商品購入画面
     Route::get('/purchase/{item}', [PurchaseController::class, 'create'])->name('purchase.create');
-    Route::post('/purchase', [PurchaseController::class, 'store'])->name('purchase.store');
+    //Route::post('/purchase', [PurchaseController::class, 'store'])->name('purchase.store');
 
     // 商品購入処理
-    Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])
+    Route::post('/purchase/{item_id}', [PurchaseController::class,'store'])
         ->name('purchase.store');
 
     // 住所変更画面

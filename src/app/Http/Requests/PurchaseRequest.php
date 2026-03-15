@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use App\Models\Purchase;
+
 class PurchaseRequest extends FormRequest
 {
     /**
@@ -13,7 +15,7 @@ class PurchaseRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return True;
     }
 
     /**
@@ -25,7 +27,27 @@ class PurchaseRequest extends FormRequest
     {
         return [
             'payment_id' => 'required',
-            'address' => 'required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'payment_id.required' => '支払い方法を選択してください',
+        ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+
+            $itemId = $this->route('item_id');
+
+            if (Purchase::where('item_id', $itemId)->exists()) {
+                $validator->errors()->add('item', 'この商品はすでに購入されています');
+            }
+
+        });
+    }
+
 }

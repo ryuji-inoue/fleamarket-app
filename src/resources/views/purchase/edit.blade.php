@@ -9,6 +9,8 @@
 <div class="address-container">
 
     <h2>住所の変更</h2>
+    @include('components.error')
+
 
     <form action="{{ route('purchase.updateAddress', $item->id) }}" method="POST">
         @csrf
@@ -19,11 +21,8 @@
             <input 
                 type="text" 
                 name="postal_code" 
-                value="{{ old('postal_code', optional($user)->postal_code) }}"
+                value="{{ old('postal_code', $address['postal_code']) }}"
             >
-            @error('postal_code')
-                <p class="error">{{ $message }}</p>
-            @enderror
         </div>
 
         {{-- 住所 --}}
@@ -32,11 +31,8 @@
             <input 
                 type="text" 
                 name="address" 
-                value="{{ old('address', optional($user)->address) }}"
+                value="{{ old('address', $address['address']) }}"
             >
-            @error('address')
-                <p class="error">{{ $message }}</p>
-            @enderror
         </div>
 
         {{-- 建物名 --}}
@@ -45,11 +41,8 @@
             <input 
                 type="text" 
                 name="building" 
-                value="{{ old('building', optional($user)->building) }}"
+                value="{{ old('building', $address['building']) }}"
             >
-            @error('building')
-                <p class="error">{{ $message }}</p>
-            @enderror
         </div>
 
         <button class="update-btn">更新する</button>
