@@ -14,7 +14,8 @@ class ConditionFactory extends Factory
     public function definition()
     {
         return [
-            'name' => '良好'
+            'name' => $this->faker->word(),
+            'sort' => $this->faker->numberBetween(1,6),
         ];
     }
 }

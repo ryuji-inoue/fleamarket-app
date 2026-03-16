@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProfileRequest;
 
 use App\Models\Item;
 use App\Models\User;
@@ -17,20 +18,20 @@ class ProfileController extends Controller
         $user = auth()->user();
 
         // 出品商品
-        if ($request->page === 'sell') {
-            $items = Item::where('user_id', $user->id)->latest()->get();
-        }
+        $soldItems = Item::where('user_id', $user->id)->latest()->get();
+
         // 購入商品
-        else if ($request->page === 'buy') {
-            $items = Item::whereIn('id', function ($query) use ($user) {
-                $query->select('item_id')
-                    ->from('purchases')
-                    ->where('user_id', $user->id);
-            })->latest()->get();
-        }
-        // 初期表示
-        else {
-            $items = Item::where('user_id', $user->id)->latest()->get();
+        $boughtItems = Item::whereIn('id', function ($query) use ($user) {
+            $query->select('item_id')
+                  ->from('purchases')
+                  ->where('user_id', $user->id);
+        })->latest()->get();
+
+        // 表示するタブに応じて items を切り替え
+        if ($request->page === 'buy') {
+            $items = $boughtItems;
+        } else {
+            $items = $soldItems; // 初期表示は出品商品
         }
 
         return view('profile.show', compact('user', 'items'));
@@ -45,17 +46,9 @@ class ProfileController extends Controller
     }
 
     /*  プロフィール更新*/
-    public function update(Request $request)
+    public function update(ProfileRequest  $request)
     {
         $user = auth()->user();
-
-        $request->validate([
-            'name' => 'required|max:255',
-            'postal_code' => 'nullable|max:8',
-            'address' => 'nullable|max:255',
-            'building' => 'nullable|max:255',
-            'profile_image' => 'nullable|image'
-        ]);
 
         //画像保存
         if($request->hasFile('profile_image')){

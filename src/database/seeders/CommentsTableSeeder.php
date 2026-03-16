@@ -4,6 +4,10 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+
+use App\Models\User;
+use App\Models\Item;
 
 class CommentsTableSeeder extends Seeder
 {
@@ -14,37 +18,26 @@ class CommentsTableSeeder extends Seeder
      */
     public function run()
     {
+        $users = User::pluck('id')->toArray();
+        $items = Item::pluck('id')->toArray();
 
-        DB::table('comments')->insert([
-            [
-                'user_id' => 1,
-                'item_id' => 1,
-                'content' => 'とても良い商品ですね！',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'user_id' => 2,
-                'item_id' => 1,
-                'content' => 'まだ購入可能ですか？',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'user_id' => 1,
-                'item_id' => 2,
-                'content' => '動作は問題ないでしょうか？',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'user_id' => 2,
-                'item_id' => 3,
-                'content' => '購入を検討しています。',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ]);
+        $comments = [
+            'とても良い商品ですね！',
+            'まだ購入可能ですか？',
+            '動作は問題ないでしょうか？',
+            '購入を検討しています。',
+        ];
 
+        foreach ($comments as $comment) {
+
+            DB::table('comments')->insert([
+                'user_id' => $users[array_rand($users)],
+                'item_id' => $items[array_rand($items)],
+                'content' => $comment,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+
+        }
     }
 }

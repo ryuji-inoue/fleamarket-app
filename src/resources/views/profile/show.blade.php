@@ -36,8 +36,12 @@
             <div class="item-card">
                 <div class="item-image">
                     <img src="{{ asset('storage/'.$item->image_path) }}" class="item-img" alt="商品画像">
+                    @if($item->status === 1)
+                        <span class="sold-label">sold</span>
+                    @endif
                 </div>
                 <p>{{ $item->name }}</p>
+                <p class="price">¥{{ number_format($item->price) }}</p>
             </div>
         @endforeach
     </div>

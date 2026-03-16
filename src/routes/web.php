@@ -42,11 +42,14 @@ Route::get('/mylist', [ItemController::class, 'mylist'])->name('items.mylist');
 // 商品詳細
 Route::get('/items/{item}', [ItemController::class, 'show'])->name('items.show');
 
-// お気に入り
-Route::post('/favorite/{item}', [FavoriteController::class, 'store'])->name('favorite.store');
 
-// コメント
-Route::post('/comment/{item}', [CommentController::class, 'store'])->name('comments.store'); 
+Route::middleware('auth')->group(function () {
+    // お気に入り
+    Route::post('/favorite/{item}', [FavoriteController::class, 'store'])->name('favorite.store');
+
+    // コメント
+    Route::post('/comments/{item}', [CommentController::class, 'store'])->name('comments.store');
+});
 
 // =======================
 // Auth (認証系)

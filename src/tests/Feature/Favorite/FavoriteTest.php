@@ -8,6 +8,7 @@ use Tests\TestCase;
 
 use App\Models\User;
 use App\Models\Item;
+use App\Models\Favorite;
 
 class FavoriteTest extends TestCase
 {

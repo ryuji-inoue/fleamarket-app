@@ -12,6 +12,12 @@ class ItemListTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed();
+    }
+
     public function test_all_items_are_displayed()
     {
         Item::factory()->count(5)->create();

@@ -26,7 +26,7 @@ class PurchaseRequest extends FormRequest
     public function rules()
     {
         return [
-            'payment_id' => 'required',
+            'payment_id' => 'nullable|integer|exists:payments,id',
         ];
     }
 

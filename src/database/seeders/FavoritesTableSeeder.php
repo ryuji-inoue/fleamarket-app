@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 
+use App\Models\User;
+use App\Models\Item;
+
 class FavoritesTableSeeder extends Seeder
 {
     /**
@@ -16,22 +19,15 @@ class FavoritesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('favorites')->insert([
-            [
-                'user_id'=>1,
-                'item_id'=>1,
-                'created_at'=>Carbon::now(),
-            ],
-            [
-                'user_id'=>1,
-                'item_id'=>2,
-                'created_at'=>Carbon::now(),
-            ],
-            [
-                'user_id'=>1,
-                'item_id'=>5,
-                'created_at'=>Carbon::now(),
-            ],
-        ]);
+        $user = User::first();
+        $items = Item::pluck('id')->take(3);
+
+        foreach ($items as $itemId) {
+            DB::table('favorites')->insert([
+                'user_id' => $user->id,
+                'item_id' => $itemId,
+                'created_at' => Carbon::now(),
+            ]);
+        }
     }
 }

@@ -49,18 +49,15 @@ class PurchaseController extends Controller
     // 購入処理
     public function store(PurchaseRequest $request, $item_id)
     {
-
-        dd($request->all());
         $item = Item::findOrFail($item_id);
         $user = auth()->user();
 
-        // 購入済みチェック
-        if (Purchase::where('item_id', $item->id)->exists()) {
-            return back()->withErrors(['item' => 'この商品はすでに購入されています']);
-        }
-
-        // session住所取得
-        $address = session('purchase_address');
+        // session から住所を取得（デフォルト値を指定）
+        $address = $request->session()->get('purchase_address', [
+            'postal_code' => $user->postal_code,
+            'address' => $user->address,
+            'building' => $user->building
+        ]);
 
         if (!$address) {
             $address = [
@@ -75,7 +72,7 @@ class PurchaseController extends Controller
         Purchase::create([
             'user_id' => $user->id,
             'item_id' => $item->id,
-            'payment_id' => $request->payment_id,
+            'payment_id' => $paymentId,
             'postal_code' => $address['postal_code'],
             'address' => $address['address'],
             'building' => $address['building'],

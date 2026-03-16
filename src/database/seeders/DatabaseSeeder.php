@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Contact;
 use Illuminate\Database\Seeder;
 
+use App\Models\User;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -14,6 +16,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+
+        User::factory()->create([
+        'id' => 1
+        ]);
+
         $this->call([
 
             

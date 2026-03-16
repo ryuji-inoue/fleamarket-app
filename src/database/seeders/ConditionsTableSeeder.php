@@ -14,13 +14,17 @@ class ConditionsTableSeeder extends Seeder
      */
     public function run()
     {
-         Condition::insert([
-            ['name' => '新品・未使用', 'sort' => 1],
-            ['name' => '未使用に近い', 'sort' => 2],
-            ['name' => '目立った傷や汚れなし', 'sort' => 3],
-            ['name' => 'やや傷や汚れあり', 'sort' => 4],
-            ['name' => '傷や汚れあり', 'sort' => 5],
-            ['name' => '全体的に状態が悪い', 'sort' => 6],
-        ]);
+        $conditions = [
+            ['name'=>'新品・未使用','sort'=>1],
+            ['name'=>'未使用に近い','sort'=>2],
+            ['name'=>'目立った傷や汚れなし','sort'=>3],
+            ['name'=>'やや傷や汚れあり','sort'=>4],
+            ['name'=>'傷や汚れあり','sort'=>5],
+            ['name'=>'全体的に状態が悪い','sort'=>6],
+        ];
+
+        foreach ($conditions as $condition) {
+            Condition::create($condition);
+        }
     }
 }

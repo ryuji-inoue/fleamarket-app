@@ -1,14 +1,14 @@
 <?php
 
-namespace Tests\Feature\Address;
+namespace Tests\Feature\Purchase;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 use App\Models\User;
 use App\Models\Item;
 use App\Models\Condition;
+use App\Models\Payment;
 
 class AddressTest extends TestCase
 {
@@ -19,12 +19,11 @@ class AddressTest extends TestCase
         $user = User::factory()->create();
         $condition = Condition::factory()->create();
 
-        $item = Item::factory()->create([
-            'condition_id' => $condition->id
-        ]);
+        $item = Item::factory()->create(['condition_id' => $condition->id]);
 
         $this->actingAs($user);
 
+        // 住所変更 POST
         $this->post("/purchase/address/{$item->id}", [
             'postal_code' => '123-4567',
             'address' => '東京都渋谷区',
@@ -39,37 +38,38 @@ class AddressTest extends TestCase
 
     public function test_address_is_saved_when_item_is_purchased()
     {
-        $user = User::factory()->create([
-            'postal_code' => '123-4567',
-            'address' => '東京都渋谷区',
-            'building' => 'テストビル'
-        ]);
-
+        $user = User::factory()->create();
         $condition = Condition::factory()->create();
+        $item = Item::factory()->create(['condition_id' => $condition->id]);
+        $payment = Payment::factory()->create(['id' => 1]);
 
-        $item = Item::factory()->create([
-            'condition_id' => $condition->id
-        ]);
-
-        $this->actingAs($user);
-
-        session([
-            'purchase_address' => [
-                'postal_code'=>'123-4567',
-                'address'=>'東京都渋谷区',
-                'building'=>'テストビル'
-            ]
-        ]);
-
-        $this->post("/purchase/{$item->id}",[
-            'payment_id' => 1
-        ]);
+        // session に住所をセットして購入処理
+        $this->actingAs($user)
+             ->withSession([
+                 'purchase_address' => [
+                     'postal_code' => '123-4567',
+                     'address' => '東京都渋谷区',
+                     'building' => 'テストビル',
+                 ]
+             ])
+             ->post("/purchase/{$item->id}", [
+                 'payment_id' => $payment->id
+             ]);
 
         // purchasesテーブル確認
-        $this->assertDatabaseHas('purchases',[
+        $this->assertDatabaseHas('purchases', [
             'item_id' => $item->id,
             'postal_code' => '123-4567',
-            'address' => '東京都渋谷区'
+            'address' => '東京都渋谷区',
+            'building' => 'テストビル',
+            'user_id' => $user->id,
+            'payment_id' => 1,
+        ]);
+
+        // 商品ステータス確認
+        $this->assertDatabaseHas('items', [
+            'id' => $item->id,
+            'status' => 1
         ]);
     }
 }
