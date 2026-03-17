@@ -9,6 +9,7 @@
 <div class="auth-container">
 
     <h2 class="page-title">ログイン</h2>
+    @include('components.error')
 
     <form method="POST" action="{{ route('login') }}">
         @csrf

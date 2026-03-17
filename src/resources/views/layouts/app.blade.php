@@ -16,7 +16,11 @@
 <body>
 
 <header class="header">
-    <div class="logo">COACHTECH</div>
+    <div class="logo">
+        <a href="{{ url('/') }}">
+            <img src="{{ asset('storage/images/logo.png') }}" alt="ロゴ">
+        </a>
+    </div>
 
     <form method="GET" action="{{ request()->routeIs('items.mylist') ? route('items.mylist') : route('items.index') }}">
         <input type="text" name="keyword"

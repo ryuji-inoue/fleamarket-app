@@ -30,13 +30,20 @@
             <form action="/favorite/{{ $item->id }}" method="POST">
                 @csrf
                 <button class="heart-btn">
-                    {{ $item->isFavoritedBy(auth()->id()) ? '❤️' : '🤍' }}
+                    <img 
+                        src="{{ $item->isFavoritedBy(auth()->id()) 
+                            ? asset('storage/images/heart-on.png') 
+                            : asset('storage/images/heart-off.png') 
+                        }}" 
+                        alt="いいね"
+                    >
                 </button>
                 <span>{{ $item->favorites->count() }}</span>
             </form>
 
             <div class="comment-icon">
-                💬 <span>{{ $item->comments->count() }}</span>
+                <img src="{{ asset('storage/images/comment.png') }}" alt="コメント">
+                <span>{{ $item->comments->count() }}</span>
             </div>
 
         </div>
