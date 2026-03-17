@@ -34,10 +34,17 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']), // パスワードはハッシュ化
         ]);
 
+        // 認証メール送信
+        $user->sendEmailVerificationNotification();
+
         // 自動ログイン
         Auth::login($user);
 
+        // メール認証誘導画面へ
+        return redirect()->route('verification.notice')
+            ->with('success', '認証メールを送信しました。メールを確認してください。');
+
         // 登録後のリダイレクト
-        return redirect('/edit')->with('success', 'ユーザ登録が完了しました。');
+        //return redirect('/edit')->with('success', 'ユーザ登録が完了しました。');
     }
 }

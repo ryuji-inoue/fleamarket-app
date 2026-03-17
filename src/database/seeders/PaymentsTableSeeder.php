@@ -16,5 +16,6 @@ class PaymentsTableSeeder extends Seeder
     {
         Payment::create(['name' => 'コンビニ払い']);
         Payment::create(['name' => 'カード払い']);
+        Payment::create(['name' => '代金引換']);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Auth\LoginController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\CommentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -129,3 +131,43 @@ Route::middleware('auth')->group(function () {
         ->name('mypage.profile.update');
     
 });
+
+
+/*
+|--------------------------------------------------------------------------
+| メール認証
+|--------------------------------------------------------------------------
+*/
+
+// 認証誘導画面
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+
+// 認証処理
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+
+    $request->fulfill();
+
+    return redirect('/mypage/profile');
+
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+
+// 認証メール再送
+Route::post('/email/verification-notification', function (Request $request) {
+
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', '認証メールを再送しました');
+
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+
+
+Route::post('/purchase/{item_id}/stripe', [PurchaseController::class, 'stripeCheckout'])
+    ->name('purchase.stripe');
+
+Route::get('/purchase/success/{item_id}', [PurchaseController::class, 'success'])
+    ->name('purchase.success');

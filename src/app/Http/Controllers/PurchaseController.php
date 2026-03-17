@@ -8,6 +8,9 @@ use App\Models\Item;
 use App\Models\Payment;
 use App\Models\Purchase;
 
+use Stripe\Stripe;
+use Stripe\Checkout\Session;
+
 class PurchaseController extends Controller
 {
     // 購入画面
@@ -126,4 +129,80 @@ class PurchaseController extends Controller
 
         return redirect()->route('purchase.create', $item_id);
     }
+
+
+    public function stripeCheckout(Request $request, $item_id)
+    {
+        $item = Item::findOrFail($item_id);
+
+        session([
+            'purchase_data' => [
+                'payment_id' => $request->payment_id,
+                'postal_code' => $request->postal_code,
+                'address' => $request->address,
+                'building' => $request->building
+            ]
+        ]);
+
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        //選択した支払い方法の反映
+        if ($request->payment_id == 1) {
+            $paymentMethods = ['konbini'];
+        } else {
+            $paymentMethods = ['card'];
+        }
+
+        $session = Session::create([
+
+            'payment_method_types' => $paymentMethods,
+
+            'line_items' => [[
+                'price_data' => [
+                    'currency' => 'jpy',
+                    'product_data' => [
+                        'name' => $item->name,
+                    ],
+                    'unit_amount' => $item->price,
+                ],
+                'quantity' => 1,
+            ]],
+
+            'mode' => 'payment',
+
+            'success_url' => route('purchase.success', ['item_id'=>$item->id]),
+
+            'cancel_url' => route('purchase.create', ['item'=>$item->id]),
+
+        ]);
+
+        return redirect($session->url);
+    }
+
+
+    public function success($item_id)
+    {
+        $item = Item::findOrFail($item_id);
+        $user = auth()->user();
+
+        $purchase = session('purchase_data');
+
+        Purchase::create([
+            'user_id' => $user->id,
+            'item_id' => $item->id,
+            'payment_id' => $purchase['payment_id'],
+            'postal_code' => $purchase['postal_code'],
+            'address' => $purchase['address'],
+            'building' => $purchase['building'],
+        ]);
+
+        $item->update([
+            'status' => 1
+        ]);
+
+        session()->forget('purchase_data');
+
+        return redirect('/');
+    }
+
 }
