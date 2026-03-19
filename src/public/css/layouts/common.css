@@ -52,12 +52,14 @@ body {
 }
 
 /* 出品ボタン */
-.sell-btn {
-    background: #fff;
+.nav-sell-btn {
+    background-color: #fff;
     color: #000 !important;
     padding: 6px 15px;
     border-radius: 4px;
     font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
 }
 
 /* コンテンツ共通幅 */

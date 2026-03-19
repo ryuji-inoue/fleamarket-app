@@ -36,7 +36,7 @@
 
         <a href="{{ route('mypage') }}">マイページ</a>
 
-        <a href="{{ route('items.sell') }}" class="sell-btn">
+        <a href="{{ route('items.sell') }}" class="nav-sell-btn">
             出品
         </a>
 
@@ -52,6 +52,8 @@
 <div class="container">
     @yield('content')
 </div>
-
 </body>
+<script src="{{ asset('js/image-preview.js') }}"></script>
+
 </html>
+

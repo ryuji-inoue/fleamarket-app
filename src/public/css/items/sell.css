@@ -1,9 +1,3 @@
-body {
-    background-color: #f5f5f5;
-    margin: 0;
-    font-family: sans-serif;
-}
-
 .sell-container {
     max-width: 700px;
     margin: 50px auto;
@@ -23,7 +17,8 @@ body {
 }
 
 .form-group {
-    margin-top: 20px;
+    margin-bottom: 20px;
+    /* ← 修正（top → bottom） */
     display: flex;
     flex-direction: column;
 }
@@ -46,11 +41,21 @@ textarea {
     height: 100px;
 }
 
+/* 画像アップロード */
 .image-upload {
     border: 1px dashed #ccc;
     padding: 30px;
     text-align: center;
     position: relative;
+}
+
+/* プレビュー画像 */
+.user-image {
+    max-width: 100%;
+    max-height: 150px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 10px;
 }
 
 .image-upload input {
@@ -66,14 +71,11 @@ textarea {
     border-radius: 4px;
 }
 
+/* カテゴリー */
 .category-list {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-}
-
-.category-tag {
-    position: relative;
 }
 
 .category-tag input {
@@ -95,25 +97,23 @@ textarea {
     color: white;
 }
 
-.sell-btn {
+/* 送信ボタン */
+.submit-btn {
     background-color: #ff5c5c;
     color: white;
     border: none;
     padding: 12px;
-    margin-top: 30px;
+    width: 100%;
     font-size: 16px;
     cursor: pointer;
     border-radius: 4px;
+    margin-top: 40px;
 }
 
-/* ---------------------
-   レスポンシブ対応
----------------------- */
+/* レスポンシブ */
 @media (max-width: 768px) {
-
     .sell-container {
         margin: 20px;
         padding: 20px;
     }
-
 }

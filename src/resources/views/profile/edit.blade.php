@@ -12,15 +12,25 @@
     <form action="/mypage/profile" method="POST" enctype="multipart/form-data">
         @csrf
 
+        {{-- 画像 + ボタン --}}
         <div class="avatar-section">
             <div class="avatar">
-                <img src="{{ asset('storage/'.(auth()->user()->profile_image ?? 'user/default-user.png')) }}" class="user-image" alt="プロフィール画像">
+                <img id="profilePreview"
+                     src="{{ $user->profile_image ? asset('storage/'.$user->profile_image) : '' }}"
+                     class="user-image">
             </div>
 
-            <label class="file-select-btn">
-                    画像を選択する
-                    <input type="file" name="profile_image">
-            </label>
+            <input
+                type="file"
+                id="profileImage"
+                name="profile_image"
+                class="js-image-input"
+                data-preview="profilePreview"
+                accept="image/*"
+            >
+
+            <label for="profileImage" class="image-btn">画像を選択する</label>
+
         </div>
 
         <div class="form-group">

@@ -16,8 +16,18 @@
         {{-- 商品画像 --}}
         <div class="form-group">
             <label>商品画像</label>
+
             <div class="image-upload">
-                <input type="file" name="image" id="image">
+                <img id="itemPreview" class="user-image" src="">
+
+                <input
+                    type="file"
+                    id="image"
+                    name="image"
+                    class="js-image-input"
+                    data-preview="itemPreview"
+                >
+
                 <label for="image" class="image-btn">画像を選択する</label>
             </div>
         </div>
@@ -29,7 +39,7 @@
         <div class="form-group">
             <label>カテゴリー</label>
             <div class="category-list">
-                @foreach($categories as $category) 
+                @foreach ($categories as $category)
                     <label class="category-tag">
                         <input type="checkbox" name="categories[]" value="{{ $category->id }}">
                         <span>{{ $category->name }}</span>
@@ -43,8 +53,9 @@
             <label>商品の状態</label>
             <select name="condition_id" class="form-control" required>
                 <option value="">選択してください</option>
-                @foreach($conditions as $condition)
-                    <option value="{{ $condition->id }}" {{ (old('condition_id') ?? '') == $condition->id ? 'selected' : '' }}>
+                @foreach ($conditions as $condition)
+                    <option value="{{ $condition->id }}"
+                        {{ old('condition_id') == $condition->id ? 'selected' : '' }}>
                         {{ $condition->name }}
                     </option>
                 @endforeach
@@ -75,7 +86,7 @@
             <input type="number" name="price" placeholder="¥">
         </div>
 
-        <button type="submit" class="sell-btn">出品する</button>
+        <button type="submit" class="submit-btn">出品する</button>
 
     </form>
 </div>
