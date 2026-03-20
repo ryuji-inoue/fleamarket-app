@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title','プロフィール')
+
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/profile/show.css') }}">
 @endsection

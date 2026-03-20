@@ -19,6 +19,9 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
 
+            // メール認証用カラム
+            $table->timestamp('email_verified_at')->nullable();
+
             // プロフィール画像
             $table->string('profile_image')->nullable();
 

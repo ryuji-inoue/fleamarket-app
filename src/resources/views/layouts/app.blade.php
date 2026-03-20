@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <title>@yield('title', 'FleaMarket')</title>
 
-    <!-- レスポンシブ -->
+    {{-- レスポンシブ  --}}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- 共通CSS -->
+    {{-- 共通CSS  --}}
     <link rel="stylesheet" href="{{ asset('css/layouts/common.css') }}">
 
-    <!-- ページ別CSS -->
+    {{-- ページ別CSS  --}}
     @yield('css')
 </head>
 <body>
@@ -53,7 +53,6 @@
         </div>
 
     @endif
-
 
         <form id="logout-form"
                 action="{{ route('logout') }}"

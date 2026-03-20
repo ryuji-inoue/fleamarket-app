@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title','商品購入')
+
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/purchase/create.css') }}">
 @endsection
