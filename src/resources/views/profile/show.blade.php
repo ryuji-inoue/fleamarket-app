@@ -12,7 +12,7 @@
     <div class="profile-header">
         <div class="profile-left">
             <div class="avatar">
-                <img src="{{ asset('storage/'.(auth()->user()->profile_image ?? 'user/default-user.png')) }}" class="user-image" alt="プロフィール画像">
+                <img src="{{ asset('storage/'.(auth()->user()->profile_image ?? '')) }}" class="user-image" alt="">
             </div>
             <h2>{{ auth()->user()->name ?? 'ゲストユーザー' }}</h2>
         </div>

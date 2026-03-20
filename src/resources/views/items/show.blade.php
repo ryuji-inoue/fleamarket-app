@@ -27,11 +27,11 @@
         {{-- いいね & コメント数 --}}
         <div class="meta-icons">
 
-            <form action="/favorite/{{ $item->id }}" method="POST">
+            <form action="{{ route('favorite.store', $item->id) }}" method="POST">
                 @csrf
                 <button class="heart-btn">
                     <img 
-                        src="{{ $item->isFavoritedBy(auth()->id()) 
+                        src="{{ $item->isFavoritedBy(auth()->id() ?? 0) 
                             ? asset('storage/images/heart-on.png') 
                             : asset('storage/images/heart-off.png') 
                         }}" 
@@ -48,9 +48,14 @@
 
         </div>
 
-        <a href="/purchase/{{ $item->id }}" class="purchase-btn">
-            購入手続きへ
-        </a>
+        {{-- 購入ボタン --}}
+        @if($item->status == 1)
+            <button class="btn-primary" disabled>売り切れ</button>
+        @else
+            <a href="/purchase/{{ $item->id }}" class="btn-primary">
+                購入手続きへ
+            </a>
+        @endif
 
         {{-- 商品説明 --}}
         <div class="section">
@@ -74,33 +79,54 @@
                 @endif
             </p>
 
-            <p>商品の状態：{{ $item->condition->name ?? '未設定' }}</p>
+            <p>
+                商品の状態：
+                <span class="condition-text">
+                    {{ $item->condition->name ?? '未設定' }}
+                </span>
+            </p>
         </div>
-
-        {{-- カテゴリ --}}
-
 
         {{-- コメント一覧 --}}
         <div class="section">
-            <h3>コメント ({{ $item->comments->count() ?? 0 }})</h3>
+            <h3>コメント ({{ $item->comments->count() }})</h3>
 
-            @foreach($item->comments as $comment)
-                <div class="comment-box">
-                    <strong>{{ $comment->user->name }}</strong>
-                    <p>{{ $comment->content }}</p>
+            @forelse($item->comments as $comment)
+                <div class="comment-item">
+
+                    <div class="comment-user">
+                        <img 
+                            src="{{ $comment->user->profile_image 
+                                ? asset('storage/'.$comment->user->profile_image) 
+                                : asset('storage/images/default-user.png') }}"
+                            class="user-icon"
+                            alt=""
+                        >
+                        <span class="user-name">{{ $comment->user->name }}</span>
+                    </div>
+
+                    <div class="comment-text">
+                        {{ $comment->content }}
+                    </div>
+
                 </div>
-            @endforeach
+            @empty
+                <p class="no-comment">まだコメントはありません</p>
+            @endforelse
         </div>
 
         {{-- コメント投稿 --}}
         @include('components.error')
-        @auth
-        <form action="{{ route('comments.store', $item->id) }}" method="POST" class="comment-form">
-            @csrf
-            <textarea name="content" placeholder="商品のコメント">{{ old('content') }}</textarea>
 
-            <button type="submit">コメントを送信する</button>
-        </form>
+        @auth
+            <form action="{{ route('comments.store', $item->id) }}" method="POST" class="comment-form">
+                @csrf
+                <textarea name="content" placeholder="商品のコメント">{{ old('content') }}</textarea>
+
+                <button type="submit" class="btn-primary">
+                    コメントを送信する
+                </button>
+            </form>
         @endauth
 
     </div>

@@ -11,7 +11,6 @@
     <h2>住所の変更</h2>
     @include('components.error')
 
-
     <form action="{{ route('purchase.updateAddress', $item->id) }}" method="POST">
         @csrf
 

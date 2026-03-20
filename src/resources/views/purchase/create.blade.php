@@ -80,34 +80,20 @@
 
         </div>
         
-    <form action="{{ route('purchase.store', $item->id) }}" method="POST">
-        @csrf
+<form action="{{ route('purchase.stripe',$item->id) }}" method="POST">
+    @csrf
 
-        <input type="hidden" name="payment_id" value="{{ $paymentId }}">
-        <input type="hidden" name="postal_code" value="{{ $address['postal_code'] }}">
-        <input type="hidden" name="address" value="{{ $address['address'] }}">
-        <input type="hidden" name="building" value="{{ $address['building'] }}">
+    <input type="hidden" name="payment_id" value="{{ $paymentId }}">
+    <input type="hidden" name="postal_code" value="{{ $address['postal_code'] }}">
+    <input type="hidden" name="address" value="{{ $address['address'] }}">
+    <input type="hidden" name="building" value="{{ $address['building'] }}">
 
-        <button class="purchase-btn">
-            購入する
-        </button>
+    <button class="purchase-btn">
+        購入する
+    </button>
 
-        @include('components.error')
-    </form>
-
-    
-    <form action="{{ route('purchase.stripe',$item->id) }}" method="POST">
-        @csrf
-
-        <input type="hidden" name="payment_id" value="{{ $paymentId }}">
-        <input type="hidden" name="postal_code" value="{{ $address['postal_code'] }}">
-        <input type="hidden" name="address" value="{{ $address['address'] }}">
-        <input type="hidden" name="building" value="{{ $address['building'] }}">
-        
-        <button type="submit">
-        Stripeで支払う
-        </button>
-    </form>
+    @include('components.error')
+</form>
 
     </div>
 

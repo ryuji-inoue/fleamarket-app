@@ -66,7 +66,7 @@ Route::post('/login', [LoginController::class, 'login']);
 // ログアウト
 Route::get('/logout', [LoginController::class, 'logout'])->name('auth.logout');
 
-
+// プロフィール編集
 Route::get('/edit', [ProfileController::class, 'edit'])->name('mypage.profile');
 
 /*
@@ -80,14 +80,18 @@ Route::middleware('auth')->group(function () {
     //Route::post('/purchase', [PurchaseController::class, 'store'])->name('purchase.store');
 
     // 商品購入処理
-    Route::post('/purchase/{item_id}', [PurchaseController::class,'store'])
-        ->name('purchase.store');
+    Route::post('/purchase/{item_id}/stripe', [PurchaseController::class, 'stripeCheckout'])
+        ->name('purchase.stripe');
 
-    // 住所変更画面
+    // 決済成功
+    Route::get('/purchase/success/{item_id}', [PurchaseController::class, 'success'])
+        ->name('purchase.success');
+
+    // 住所変更
     Route::get('/purchase/address/{item}', [PurchaseController::class, 'editAddress'])
         ->name('address.edit');
 
-    // 住所更新処理
+    // 住所更新
     Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'updateAddress'])
         ->name('purchase.updateAddress');
 
@@ -104,7 +108,6 @@ Route::middleware('auth')->group(function () {
     // 出品画面
     Route::get('/sell', [ItemController::class, 'create'])->name('items.sell');;
     
-
     // 出品登録
     Route::post('/sell', [ItemController::class, 'store'])->name('items.store');
 
@@ -163,11 +166,3 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', '認証メールを再送しました');
 
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
-
-
-
-Route::post('/purchase/{item_id}/stripe', [PurchaseController::class, 'stripeCheckout'])
-    ->name('purchase.stripe');
-
-Route::get('/purchase/success/{item_id}', [PurchaseController::class, 'success'])
-    ->name('purchase.success');

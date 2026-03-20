@@ -15,30 +15,45 @@
 </head>
 <body>
 
+@php
+    $isAuthPage = request()->routeIs(['login', 'register', 'verification.notice']);
+@endphp
+
 <header class="header">
     <div class="logo">
-        <a href="{{ url('/') }}">
+        <a href="{{ url('/') }}"
+            @if($isAuthPage)
+                onclick="event.preventDefault();"
+            @endif
+        >
             <img src="{{ asset('storage/images/logo.png') }}" alt="ロゴ">
         </a>
     </div>
 
-    <form method="GET" action="{{ request()->routeIs('items.mylist') ? route('items.mylist') : route('items.index') }}">
-        <input type="text" name="keyword"
-               value="{{ request('keyword') }}"
-               placeholder="なにをお探しですか？">
-    </form>
+    {{-- ログイン・会員登録時は非表示 --}}
+    @if (!$isAuthPage)
 
-    <div class="nav">
-        <a href="{{ route('logout') }}"
-            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            ログアウト
-        </a>
+        <form method="GET" action="{{ request()->routeIs('items.mylist') ? route('items.mylist') : route('items.index') }}">
+            <input type="text" name="keyword"
+                    value="{{ request('keyword') }}"
+                    placeholder="なにをお探しですか？">
+        </form>
 
-        <a href="{{ route('mypage') }}">マイページ</a>
+        <div class="nav">
+            <a href="{{ route('logout') }}"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                ログアウト
+            </a>
 
-        <a href="{{ route('items.sell') }}" class="nav-sell-btn">
-            出品
-        </a>
+            <a href="{{ route('mypage') }}">マイページ</a>
+
+            <a href="{{ route('items.sell') }}" class="nav-sell-btn">
+                出品
+            </a>
+        </div>
+
+    @endif
+
 
         <form id="logout-form"
                 action="{{ route('logout') }}"
