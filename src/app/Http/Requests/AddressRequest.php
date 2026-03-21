@@ -13,7 +13,7 @@ class AddressRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,6 +26,23 @@ class AddressRequest extends FormRequest
         return [
             'postal_code' => ['required','regex:/^\d{3}-\d{4}$/'],
             'address' => 'required'
+        ];
+    }
+
+
+    // カスタムメッセージ
+    public function messages()
+    {
+        return [
+            'name.required' => 'ユーザー名を入力して下さい。',
+            'name.max' => 'ユーザー名は20文字以内で入力してください。',
+
+            'postal_code.required' => '郵便番号を入力して下さい。',
+            'postal_code.regex' => '郵便番号は「123-4567」の形式で入力してください。',
+
+            'address.required' => '住所を入力して下さい。',
+
+            'profile_image.mimes' => '画像はjpegまたはpng形式でアップロードしてください。',
         ];
     }
 }

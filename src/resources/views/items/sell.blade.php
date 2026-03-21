@@ -11,7 +11,8 @@
 <div class="sell-container">
 
     <h2 class="page-title">商品の出品</h2>
-
+        @include('components.error')
+        
     <form action="/sell" method="POST" enctype="multipart/form-data" class="sell-form">
         @csrf
 

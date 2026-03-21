@@ -7,6 +7,9 @@ use App\Models\Item;
 use App\Models\Payment;
 use App\Models\Purchase;
 
+use App\Http\Requests\AddressRequest;
+use App\Http\Requests\PurchaseRequest;
+
 use Stripe\Stripe;
 use Stripe\Checkout\Session;
 
@@ -43,14 +46,15 @@ class PurchaseController extends Controller
             'payments',
             'selectedPayment',
             'paymentId',
-            'address'
+            'address',
+            'user'
         ));
     }
 
     /**
      * Stripe決済
      */
-    public function stripeCheckout(Request $request, Item $item)
+    public function stripeCheckout(PurchaseRequest $request, Item $item)
     {
         // セッションに住所と支払情報を保存
         session([
@@ -138,13 +142,8 @@ class PurchaseController extends Controller
     /**
      * 住所更新
      */
-    public function updateAddress(Request $request, Item $item) 
+    public function updateAddress(AddressRequest $request, Item $item) 
     {
-        $request->validate([
-            'postal_code' => 'required|string|max:8',
-            'address' => 'required|string|max:255',
-            'building' => 'nullable|string|max:255',
-        ]);
 
         // セッションに保存
         session([

@@ -10,6 +10,7 @@
 <div class="edit-container">
 
     <h2 class="profile-title">プロフィール設定</h2>
+        @include('components.error')
 
     <form action="/mypage/profile" method="POST" enctype="multipart/form-data">
         @csrf

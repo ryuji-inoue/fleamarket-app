@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ExhibitionRequest;
+
 use App\Models\Item;
 use App\Models\Favorite;
 use App\Models\Category;
@@ -75,7 +77,7 @@ class ItemController extends Controller
     }
 
     // 出品登録
-    public function store(Request $request)
+    public function store(ExhibitionRequest $request)
     {
         $path = null;
 

@@ -54,9 +54,9 @@
 
             {{-- 初期値はユーザー住所、住所変更時はsessionから住所を取得 --}}
             <p>
-                〒 {{ $address['postal_code'] ?? $user->postal_code }}
-                {{ $address['address'] ?? $user->address }}
-                {{ $address['building'] ?? $user->building }}
+                〒 {{ $address['postal_code'] ?? optional($user)->postal_code }}
+                {{ $address['address'] ?? optional($user)->address }}
+                {{ $address['building'] ?? optional($user)->building }}
             </p>
 
         </div>
