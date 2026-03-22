@@ -17,11 +17,9 @@
         <div class="profile-left">
             <div class="avatar">
                 <img 
-                    src="{{ $user->profile_image 
-                        ? asset('storage/'.$user->profile_image) 
-                        : asset('images/default.png') }}"
+                    src="{{ asset('storage/'.$user->profile_image) }}"
                     class="user-image"
-                    alt="プロフィール画像"
+                    alt=""
                 >
             </div>
             <h2>{{ $user->name ?? 'ゲストユーザー' }}</h2>
