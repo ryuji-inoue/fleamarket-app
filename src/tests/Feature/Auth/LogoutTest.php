@@ -10,6 +10,9 @@ class LogoutTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * ログインして、ログアウト出来ることを確認
+     */
     public function test_user_can_logout()
     {
         // 1. ユーザー作成
@@ -27,7 +30,7 @@ class LogoutTest extends TestCase
         // 期待：ログアウトされている
         $this->assertGuest();
 
-        // リダイレクト確認（任意）
+        // リダイレクト確認
         $response->assertRedirect('/');
     }
 }

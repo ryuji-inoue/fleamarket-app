@@ -16,7 +16,7 @@
     </p>
 
     <div class="verify-button">
-        <a href="/edit" class="verify-btn">
+        <a href="{{ route('mypage.profile') }}" class="verify-btn">
             認証はこちらから
         </a>
     </div>

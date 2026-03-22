@@ -18,7 +18,7 @@ class AddressTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * 要件：配送先変更画面で登録した住所が商品購入画面に反映されている
+     * 配送先変更画面で登録した住所が商品購入画面に反映されていることを確認
      * テスト手順：
      * 1. ユーザーにログイン
      * 2. 送付先住所変更画面で住所を登録
@@ -57,12 +57,7 @@ class AddressTest extends TestCase
     }
 
     /**
-     * 要件：購入した商品に送付先住所が紐づいて登録される
-     * テスト手順：
-     * 1. ユーザーにログイン
-     * 2. 住所変更後に商品購入
-     * 3. purchasesテーブルに正しく住所が保存されていることを確認
-     * 4. 商品のステータスが購入済みに更新されていることを確認
+     * 購入した商品に送付先住所が紐づいて登録されることを確認
      */
     public function test_address_is_saved_when_item_is_purchased()
     {

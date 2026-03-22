@@ -73,6 +73,7 @@ Route::middleware('auth')->group(function () {
     // ---------------------
     // 出品画面
     Route::get('/sell', [ItemController::class, 'create'])->name('items.sell'); 
+
     // 出品登録
     Route::post('/sell', [ItemController::class, 'store'])->name('items.store'); 
 
@@ -81,8 +82,10 @@ Route::middleware('auth')->group(function () {
     // ---------------------
     // プロフィール画面
     Route::get('/mypage', [ProfileController::class, 'show'])->name('mypage'); 
-    // プロフィール編集画面
-    Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('mypage.profile.edit'); 
+
+    // プロフィール編集
+    Route::get('/mypage/edit', [ProfileController::class, 'edit'])->name('mypage.profile');
+
     // プロフィール更新処理
     Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('mypage.profile.update'); 
 
@@ -111,9 +114,6 @@ Route::post('/login', [LoginController::class, 'login']);
 // ログアウト
 Route::get('/logout', [LoginController::class, 'logout'])->name('auth.logout');
 
-// プロフィール編集
-Route::get('/edit', [ProfileController::class, 'edit'])->name('mypage.profile');
-
 /*
 |--------------------------------------------------------------------------
 | メール認証
@@ -128,7 +128,7 @@ Route::get('/email/verify', function () {
 // 認証処理
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill(); // 認証済みにする
-    return redirect('/mypage/profile'); // プロフィール編集画面へリダイレクト
+    return redirect('/mypage/edit'); // プロフィール編集画面へリダイレクト
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 // 認証メール再送

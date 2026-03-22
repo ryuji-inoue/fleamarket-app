@@ -13,6 +13,9 @@ class PaymentMethodTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * 小計画面で変更が反映されることを確認
+     */
     public function test_payment_method_selection_reflected()
     {
         // 1. テスト用ユーザー作成
