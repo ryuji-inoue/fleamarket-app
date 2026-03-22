@@ -33,7 +33,7 @@
                 @csrf
                 <button class="heart-btn">
                     <img 
-                        src="{{ $item->isFavoritedBy(auth()->id() ?? 0) 
+                        src="{{ $item->isFavoritedBy(auth()->id()) 
                             ? asset('storage/images/heart-on.png') 
                             : asset('storage/images/heart-off.png') 
                         }}" 

@@ -72,16 +72,6 @@ body {
     padding: 0 20px;
 }
 
-/* タブレット（768〜850px） */
-@media screen and (max-width:850px) {
-
-    .container {
-        max-width: 850px;
-        padding: 0 20px;
-    }
-
-}
-
 /* エラーメッセージ */
 .error-message {
     color: #ff0000;

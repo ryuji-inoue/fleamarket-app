@@ -170,7 +170,7 @@
 
 /* コメント本文 */
 .comment-text {
-    margin-left: 44px;
+    margin-left: calc(36px + 8px);
     /* ←アイコン分ずらす */
     background: #eee;
     padding: 10px 12px;

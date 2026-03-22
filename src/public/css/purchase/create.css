@@ -1,5 +1,6 @@
 .purchase-wrapper {
-    width: 1000px;
+    max-width: 1000px;
+    width: 100%;
     margin: 40px auto;
     display: flex;
     gap: 40px;
@@ -8,6 +9,16 @@
 /* 左 */
 .purchase-left {
     flex: 2;
+    border: 1px solid #eee;
+    padding: 20px;
+}
+
+/* ===== セクション共通（仕切り線＋余白） ===== */
+.item-section,
+.payment-section,
+.address-section {
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
 }
 
 /* 商品情報 */
@@ -32,25 +43,37 @@
     margin-top: 5px;
 }
 
-/* 支払い */
+/* ===== 支払い方法 ===== */
 .payment-section {
-    margin-top: 30px;
+    padding-left: 20px;
 }
 
 .payment-section select {
     margin-top: 10px;
-    padding: 5px;
-    width: 200px;
+    padding: 6px;
+    width: 220px;
 }
 
-/* 配送先 */
+.payment-content {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+/* ===== 配送先 ===== */
 .address-section {
-    margin-top: 30px;
+    padding-left: 20px;
 }
 
+.address-content {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+/* ヘッダー行 */
 .address-header {
     display: flex;
     justify-content: space-between;
+    padding-right: 20px;
 }
 
 .address-header a {
@@ -58,7 +81,12 @@
     text-decoration: none;
 }
 
-/* 右カラム */
+/* 住所テキスト */
+.address-section p {
+    margin-top: 5px;
+}
+
+/* ===== 右カラム ===== */
 .purchase-right {
     flex: 1;
 }

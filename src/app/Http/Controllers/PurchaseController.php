@@ -28,7 +28,17 @@ class PurchaseController extends Controller
         $payments = Payment::all();
 
         $selectedPayment = null;
-        $paymentId = $request->payment_method;
+
+        // 支払い方法
+        if ($request->payment_method) {
+            session(['payment_method' => $request->payment_method]);
+        }
+
+        $paymentId = session('payment_method');
+
+          $selectedPayment = $paymentId
+        ? Payment::find($paymentId)
+        : null;
 
         if ($paymentId) {
             $selectedPayment = Payment::find($paymentId);
@@ -59,12 +69,17 @@ class PurchaseController extends Controller
         // セッションに住所と支払情報を保存
         session([
             'purchase_data' => [
-                'payment_id' => $request->payment_id,
+                'payment_id' => session('payment_method'),
                 'postal_code' => $request->postal_code,
                 'address' => $request->address,
                 'building' => $request->building
             ]
         ]);
+
+        // local環境だけスキップ
+        if (app()->environment('local')) {
+            return redirect()->route('purchase.success', ['item' => $item->id]);
+        }
 
         Stripe::setApiKey(config('services.stripe.secret'));
 

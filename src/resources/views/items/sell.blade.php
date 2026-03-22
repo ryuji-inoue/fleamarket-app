@@ -44,7 +44,12 @@
             <div class="category-list">
                 @foreach ($categories as $category)
                     <label class="category-tag">
-                        <input type="checkbox" name="categories[]" value="{{ $category->id }}">
+                        <input 
+                            type="checkbox" 
+                            name="categories[]" 
+                            value="{{ $category->id }}"
+                            {{ in_array($category->id, old('categories', [])) ? 'checked' : '' }}
+                        >
                         <span>{{ $category->name }}</span>
                     </label>
                 @endforeach
@@ -68,25 +73,25 @@
         {{-- 商品名 --}}
         <div class="form-group">
             <label>商品名</label>
-            <input type="text" name="name">
+            <input type="text" name="name" value="{{ old('name') }}">
         </div>
 
         {{-- ブランド名 --}}
         <div class="form-group">
             <label>ブランド名</label>
-            <input type="text" name="brand">
+            <input type="text" name="brand" value="{{ old('brand') }}">
         </div>
 
         {{-- 商品説明 --}}
         <div class="form-group">
             <label>商品の説明</label>
-            <textarea name="description"></textarea>
+            <textarea name="description">{{ old('description') }}</textarea>
         </div>
 
         {{-- 販売価格 --}}
         <div class="form-group">
             <label>販売価格</label>
-            <input type="number" name="price" placeholder="¥">
+            <input type="number" name="price" value="{{ old('price') }}" placeholder="¥">
         </div>
 
         <button type="submit" class="submit-btn">出品する</button>

@@ -16,7 +16,7 @@
         {{-- 商品情報 --}}
         <div class="item-section">
 
-            <img src="{{ asset('storage/'.$item->image_path) }}"class="item-image" alt="商品画像">
+            <img src="{{ asset('storage/'.$item->image_path) }}" class="item-image" alt="商品画像">
 
             <div class="item-info">
                 <h2>{{ $item->name }}</h2>
@@ -29,19 +29,21 @@
         <div class="payment-section">
 
             <h3>支払い方法</h3>
-
-            <form action="{{ route('purchase.create', $item->id) }}" method="GET">
-                <select name="payment_method" onchange="this.form.submit()">
-                    <option value="" disabled selected>選択してください</option>
-                    @foreach($payments as $payment)
-                        <option value="{{ $payment->id }}"
-                            {{ $paymentId == $payment->id ? 'selected' : '' }}>
-                            {{ $payment->name }}
+            <div class="payment-content"> 
+                <form action="{{ route('purchase.create', $item->id) }}" method="GET">
+                    <select name="payment_method" onchange="this.form.submit()">
+                        <option value="" disabled {{ !$paymentId ? 'selected' : '' }}>
+                            選択してください
                         </option>
-                    @endforeach
-                </select>
-            </form>
-
+                        @foreach($payments as $payment)
+                            <option value="{{ $payment->id }}"
+                                {{ $paymentId == $payment->id ? 'selected' : '' }}>
+                                {{ $payment->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </form>
+            </div>
         </div>
 
         {{-- 配送先 --}}
@@ -52,13 +54,15 @@
                 <a href="{{ route('address.edit', $item->id) }}">変更する</a>
             </div>
 
-            {{-- 初期値はユーザー住所、住所変更時はsessionから住所を取得 --}}
-            <p>
-                〒 {{ $address['postal_code'] ?? optional($user)->postal_code }}
-                {{ $address['address'] ?? optional($user)->address }}
-                {{ $address['building'] ?? optional($user)->building }}
-            </p>
-
+            <div class="address-content">
+                <p>
+                    〒 {{ $address['postal_code'] ?? optional($user)->postal_code }}
+                </p>
+                <p>
+                    {{ $address['address'] ?? optional($user)->address }}
+                    {{ $address['building'] ?? optional($user)->building }}
+                </p>
+            </div>
         </div>
 
     </div>
@@ -75,27 +79,25 @@
 
             <div class="summary-row">
                 <span>支払い方法</span>
-                    <span>
-                       <span>{{ $selectedPayment->name ?? '未選択' }}</span>
-                    </span>
+                <span>{{ $selectedPayment->name ?? '未選択' }}</span>
             </div>
 
         </div>
         
-<form action="{{ route('purchase.stripe',$item->id) }}" method="POST">
-    @csrf
+        <form action="{{ route('purchase.stripe',$item->id) }}" method="POST">
+            @csrf
 
-    <input type="hidden" name="payment_id" value="{{ $paymentId }}">
-    <input type="hidden" name="postal_code" value="{{ $address['postal_code'] }}">
-    <input type="hidden" name="address" value="{{ $address['address'] }}">
-    <input type="hidden" name="building" value="{{ $address['building'] }}">
+            <input type="hidden" name="payment_id" value="{{ $paymentId }}">
+            <input type="hidden" name="postal_code" value="{{ $address['postal_code'] ?? optional($user)->postal_code }}">
+            <input type="hidden" name="address" value="{{ $address['address'] ?? optional($user)->address }}">
+            <input type="hidden" name="building" value="{{ $address['building'] ?? optional($user)->building }}">
 
-    <button class="purchase-btn">
-        購入する
-    </button>
+            <button type="submit" class="purchase-btn">
+                購入する
+            </button>
 
-    @include('components.error')
-</form>
+            @include('components.error')
+        </form>
 
     </div>
 

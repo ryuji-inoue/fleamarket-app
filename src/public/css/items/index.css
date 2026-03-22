@@ -2,8 +2,9 @@
 .tabs {
     display: flex;
     gap: 60px;
-    padding: 0 0 20px 10px;
+    padding: 0 20px 10px;
     border-bottom: 2px solid #ddd;
+    margin-top: 20px;
     margin-bottom: 40px;
 }
 
@@ -73,16 +74,4 @@
 .item-link {
     text-decoration: none;
     color: inherit;
-}
-
-/* レスポンシブ */
-@media(max-width:768px) {
-    .item-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .profile-header {
-        flex-direction: column;
-        gap: 20px;
-    }
 }

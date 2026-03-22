@@ -17,7 +17,8 @@ class ExhibitionRequest extends FormRequest
             'name' => 'required',
             'description' => 'required|max:255',
             'image' => 'required|mimes:jpeg,png',
-            'category_id' => 'required',
+            'categories' => 'required|array',
+            'categories.*' => 'exists:categories,id',
             'condition_id' => 'required',
             'price' => 'required|numeric|min:0',
         ];

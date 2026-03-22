@@ -8,18 +8,26 @@
 
 @section('content')
 
+@php $user = auth()->user(); @endphp
+
 <div class="profile-container">
 
     {{-- 上部プロフィール情報 --}}
     <div class="profile-header">
         <div class="profile-left">
             <div class="avatar">
-                <img src="{{ asset('storage/'.(auth()->user()->profile_image ?? '')) }}" class="user-image" alt="">
+                <img 
+                    src="{{ $user->profile_image 
+                        ? asset('storage/'.$user->profile_image) 
+                        : asset('images/default.png') }}"
+                    class="user-image"
+                    alt="プロフィール画像"
+                >
             </div>
-            <h2>{{ auth()->user()->name ?? 'ゲストユーザー' }}</h2>
+            <h2>{{ $user->name ?? 'ゲストユーザー' }}</h2>
         </div>
 
-        <a href="/mypage/profile" class="edit-btn">プロフィールを編集</a>
+        <a href="{{ route('mypage.profile') }}" class="edit-btn">プロフィールを編集</a>
     </div>
 
     {{-- タブ --}}
@@ -37,7 +45,13 @@
         @foreach($items as $item)
             <div class="item-card">
                 <div class="item-image">
-                    <img src="{{ asset('storage/'.$item->image_path) }}" class="item-img" alt="商品画像">
+                    <img 
+                        src="{{ $item->image_path 
+                            ? asset('storage/'.$item->image_path) 
+                            : asset('images/no-image.png') }}"
+                        class="item-img"
+                        alt="商品画像"
+                    >
                     @if($item->status === 1)
                         <span class="sold-label">sold</span>
                     @endif

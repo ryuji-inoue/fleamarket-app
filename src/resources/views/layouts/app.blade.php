@@ -40,11 +40,10 @@
         </form>
 
         <div class="nav">
-            <a href="{{ route('logout') }}"
-                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <a href="#"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 ログアウト
             </a>
-
             <a href="{{ route('mypage') }}">マイページ</a>
 
             <a href="{{ route('items.sell') }}" class="nav-sell-btn">

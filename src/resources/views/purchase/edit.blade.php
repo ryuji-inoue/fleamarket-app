@@ -18,35 +18,41 @@
 
         {{-- 郵便番号 --}}
         <div class="form-group">
-            <label>郵便番号</label>
+            <label for="postal_code">郵便番号</label>
             <input 
+                id="postal_code"
                 type="text" 
                 name="postal_code" 
-                value="{{ old('postal_code', $address['postal_code']) }}"
+                value="{{ old('postal_code', $address['postal_code'] ?? '') }}"
+                class="@error('postal_code') is-invalid @enderror"
             >
         </div>
 
         {{-- 住所 --}}
         <div class="form-group">
-            <label>住所</label>
+            <label for="address">住所</label>
             <input 
+                id="address"
                 type="text" 
                 name="address" 
-                value="{{ old('address', $address['address']) }}"
+                value="{{ old('address', $address['address'] ?? '') }}"
+                class="@error('address') is-invalid @enderror"
             >
         </div>
 
         {{-- 建物名 --}}
         <div class="form-group">
-            <label>建物名</label>
+            <label for="building">建物名</label>
             <input 
+                id="building"
                 type="text" 
                 name="building" 
-                value="{{ old('building', $address['building']) }}"
+                value="{{ old('building', $address['building'] ?? '') }}"
+                class="@error('building') is-invalid @enderror"
             >
         </div>
 
-        <button class="update-btn">更新する</button>
+        <button type="submit" class="update-btn">更新する</button>
         
     </form>
 

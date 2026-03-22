@@ -58,7 +58,7 @@
 .item-grid {
     margin-top: 30px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
 }
 
@@ -67,6 +67,7 @@
 }
 
 .item-image {
+    position: relative;
     width: 100%;
     height: 180px;
     overflow: hidden;
@@ -79,14 +80,13 @@
     object-fit: cover;
 }
 
-/* レスポンシブ */
-@media(max-width:768px) {
-    .item-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .profile-header {
-        flex-direction: column;
-        gap: 20px;
-    }
+/* soldラベル */
+.sold-label {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: red;
+    color: white;
+    padding: 4px 8px;
+    font-size: 12px;
 }
