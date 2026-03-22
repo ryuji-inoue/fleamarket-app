@@ -25,6 +25,6 @@ class FavoriteController extends Controller
             ]);
         }
 
-        return back(); // 元のページに戻る
+        return response()->json(['status' => 'ok']);
     }
 }

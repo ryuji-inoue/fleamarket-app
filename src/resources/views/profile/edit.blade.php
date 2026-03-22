@@ -20,7 +20,7 @@
             <div class="avatar">
                 <img 
                     id="profilePreview"
-                    src="{{ $user->profile_image ? asset('storage/'.$user->profile_image) : '' }}"
+                    src="{{ $user?->profile_image ? asset('storage/'.$user->profile_image) : '' }}"
                     class="user-image"
                     alt=""
                 >

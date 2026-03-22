@@ -15,15 +15,10 @@ class PurchaseTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * 購入処理と購入済みステータス確認
-     * テスト手順：
-     * 1. ユーザーと出品者作成
-     * 2. 商品作成（未購入）
-     * 3. Stripe モックして購入処理
-     * 4. purchasesテーブルに購入情報が登録されるか
-     * 5. 商品ステータスが購入済みになるか
-     * 6. 商品一覧に「sold」表示
-     * 7. マイページ購入一覧に商品名表示
+     * 商品購入の網羅テスト
+     * ・「購入する」ボタンを押下すると購入が完了する
+     * ・購入した商品は商品一覧画面にて「sold」と表示される
+     * ・「プロフィール/購入した商品一覧」に追加されている
      */
     public function test_purchase_process_and_sold_label()
     {

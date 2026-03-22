@@ -50,4 +50,9 @@ class Item extends Model
     {
         return $this->favorites()->where('user_id', $user_id)->exists();
     }
+
+    public function getFavoritesCountAttribute()
+    {
+        return $this->favorites()->count();
+    }
 }

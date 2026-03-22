@@ -13,7 +13,7 @@ class EmailVerificationTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * 会員登録後、認証メールが送信される
+     * 会員登録後、認証メールが送信されることの確認
      */
     public function test_verification_email_is_sent_after_registration()
     {
@@ -32,7 +32,7 @@ class EmailVerificationTest extends TestCase
     }
 
     /**
-     * 認証誘導画面のリンク遷移
+     * メール認証誘導画面で「認証はこちらから」ボタンを押下するとメール認証サイトに遷移することの確認
      */
     public function test_verify_notice_screen_has_link()
     {
@@ -45,7 +45,7 @@ class EmailVerificationTest extends TestCase
     }
 
     /**
-     * メール認証完了 → プロフィール画面へ遷移
+     * メール認証サイトのメール認証を完了すると、プロフィール設定画面に遷移することの確認
      */
     public function test_user_is_redirected_after_email_verification()
     {
@@ -67,6 +67,6 @@ class EmailVerificationTest extends TestCase
         $this->assertTrue($user->fresh()->hasVerifiedEmail());
 
         // プロフィール画面へリダイレクト
-        $response->assertRedirect('/mypage/profile');
+        $response->assertRedirect('/mypage/edit');
     }
 }
