@@ -37,20 +37,6 @@
     ・Stripe決済とメール認証機能を実装したため、設定ファイルの修正をお願いします。
         └githubがpublic公開のため、APIキーは公開できず、アカウント周りは採点者側でご対応頂けますでしょうか。
             
-    # Stripe決済設定
-        STRIPE_KEY
-        STRIPE_SECRET
-        
-    # メール認証設定（Mailtrap利用想定）
-        MAIL_MAILER=log
-        MAIL_HOST=sandbox.smtp.mailtrap.io
-        MAIL_PORT=2525
-        MAIL_USERNAME=xxxx
-        MAIL_PASSWORD=xxxx
-        MAIL_ENCRYPTION=tls
-        MAIL_FROM_ADDRESS=test@example.com
-        MAIL_FROM_NAME="${APP_NAME}"
-
     # コンフィグファイル設定
     ・ Stripe: config/services.php に以下を追加
         'stripe' => [
