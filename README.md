@@ -9,7 +9,7 @@
 ### Docker ビルド
     ```bash
     # リポジトリをクローン
-    ・git clone -b develop https://github.com/ryuji-inoue/fleamarket-app.git .
+    ・git clone githttps://github.com/ryuji-inoue/fleamarket-app.git .
 
     # Docker コンテナをビルド・起動
     ・docker-compose up -d --build
